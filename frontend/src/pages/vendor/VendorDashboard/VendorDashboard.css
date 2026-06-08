@@ -1,0 +1,137 @@
+.vendor-page { min-height: 100vh; padding-top: var(--nav-height); }
+
+.vendor-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-8);
+}
+
+.vendor-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  font-size: 1.8rem;
+}
+
+.vendor-stat__value {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+}
+
+.vendor-stat__label {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.vendor-orders {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.vendor-order { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.vendor-order__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.vendor-order__id {
+  font-family: var(--font-mono);
+  font-size: var(--text-base);
+  color: var(--color-primary);
+  font-weight: var(--weight-semi);
+}
+
+.vendor-order__product {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-text);
+  margin-top: 2px;
+}
+
+.vendor-order__customer {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-top: 4px;
+}
+
+.vendor-order__customizations {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.vendor-order__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+/* ── Measurements Modal ────────────────────────────────── */
+.vendor-measurements-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.vendor-measurement-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.vendor-measurement-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-transform: capitalize;
+}
+
+.vendor-measurement-value {
+  font-weight: var(--weight-semi);
+  color: var(--color-primary);
+  font-family: var(--font-mono);
+}
+
+/* ── Shared Tabs (reused from UserDashboard) ────────────── */
+.dashboard-tabs {
+  display: flex;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: var(--space-6);
+}
+
+.dashboard-tab {
+  padding: var(--space-3) var(--space-5);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all var(--transition-fast);
+}
+
+.dashboard-tab:hover { color: var(--color-primary); }
+.dashboard-tab.active { color: var(--color-primary); border-bottom-color: var(--color-gold); }
+
+@media (max-width: 800px) {
+  .vendor-stats { grid-template-columns: repeat(2, 1fr); }
+  .vendor-order__footer { flex-direction: column; align-items: flex-start; }
+}
