@@ -1,0 +1,749 @@
+[
+  {
+    "_id": "6a044bbf22fd89cad1f7c9bb",
+    "userId": "6a044bbe22fd89cad1f7c98e",
+    "vendorId": "6a044bbe22fd89cad1f7c98c",
+    "productId": "6a044bbf22fd89cad1f7c992",
+    "measurements": {
+      "chest": 96,
+      "waist": 82,
+      "shoulder": 43,
+      "hip": 96,
+      "inseam": 79,
+      "sleeve": 62,
+      "neck": 38
+    },
+    "selectedFabric": "Egyptian Cotton",
+    "selectedColor": "Sky Blue",
+    "fitPreference": "regular",
+    "basePrice": 2499,
+    "fabricSurcharge": 0,
+    "totalPrice": 2499,
+    "status": "qc",
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-08T10:00:31.997Z",
+        "_id": "6a044bbf22fd89cad1f7c9bc"
+      },
+      {
+        "status": "pattern",
+        "timestamp": "2026-05-10T10:00:31.997Z",
+        "_id": "6a044bbf22fd89cad1f7c9bd"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-12T10:00:31.997Z",
+        "_id": "6a044bbf22fd89cad1f7c9be"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-16T14:42:03.206Z",
+        "note": "",
+        "_id": "6a08823bbbcf9970b1ed6f9b"
+      },
+      {
+        "status": "shipped",
+        "timestamp": "2026-05-16T14:42:06.762Z",
+        "note": "",
+        "_id": "6a08823ebbcf9970b1ed6fb2"
+      },
+      {
+        "status": "qc",
+        "timestamp": "2026-05-16T14:54:04.240Z",
+        "note": "",
+        "_id": "6a08850cbbcf9970b1ed7031"
+      }
+    ],
+    "vendorAccepted": true,
+    "deliveryAddress": {
+      "street": "12 MG Road",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500001"
+    },
+    "createdAt": "2026-05-13T10:00:32.001Z",
+    "updatedAt": "2026-05-16T14:54:04.242Z",
+    "orderId": "FC-MP3W2IGX-EFAJ",
+    "__v": 3
+  },
+  {
+    "_id": "6a044e26043493879bfeab02",
+    "userId": "6a044bbe22fd89cad1f7c98e",
+    "vendorId": "6a044bbe22fd89cad1f7c98c",
+    "productId": "6a044d74043493879bfeaa0d",
+    "measurements": {
+      "chest": 93.3,
+      "waist": 58,
+      "shoulder": 42.9,
+      "hip": 75,
+      "inseam": 82.3,
+      "sleeve": 57.8,
+      "neck": 34
+    },
+    "selectedFabric": "hbkh",
+    "selectedColor": "blue",
+    "fitPreference": "loose",
+    "basePrice": 1234,
+    "fabricSurcharge": 14,
+    "totalPrice": 1248,
+    "status": "stitching",
+    "vendorAccepted": true,
+    "estimatedDelivery": "2026-05-23T10:10:46.536Z",
+    "deliveryAddress": {
+      "street": "5-23,saddalaguttapalle,keshapuram,chinnamandem,annamayaa,andhra pradesh-516214",
+      "city": "rayachoti",
+      "state": "ANDHRA PRADESH",
+      "pincode": "516269"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-13T10:10:46.542Z",
+        "_id": "6a044e26043493879bfeab03"
+      },
+      {
+        "status": "pattern",
+        "timestamp": "2026-05-16T14:41:59.422Z",
+        "note": "",
+        "_id": "6a088237bbcf9970b1ed6f86"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-16T14:58:28.454Z",
+        "note": "",
+        "_id": "6a088614bbcf9970b1ed708e"
+      }
+    ],
+    "createdAt": "2026-05-13T10:10:46.542Z",
+    "updatedAt": "2026-05-16T14:58:28.456Z",
+    "orderId": "FC-MP3WFONI-RTWE",
+    "__v": 2
+  },
+  {
+    "_id": "6a07255f6671e8aef9d1c3ec",
+    "userId": "6a0724b56671e8aef9d1c37d",
+    "vendorId": null,
+    "productId": "6a044bbf22fd89cad1f7c9ac",
+    "measurements": {
+      "chest": 81.6,
+      "waist": 58,
+      "shoulder": 39.2,
+      "hip": 75,
+      "inseam": 75.2,
+      "sleeve": 55,
+      "neck": 34
+    },
+    "selectedFabric": "Italian Wool",
+    "selectedColor": "Navy",
+    "fitPreference": "regular",
+    "basePrice": 5999,
+    "fabricSurcharge": 0,
+    "totalPrice": 5999,
+    "status": "confirmed",
+    "vendorAccepted": null,
+    "estimatedDelivery": "2026-05-25T13:53:35.760Z",
+    "deliveryAddress": {
+      "street": "121.gb ",
+      "city": "tirupati",
+      "state": "Andhra Pradesh",
+      "pincode": "516269"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-15T13:53:35.769Z",
+        "_id": "6a07255f6671e8aef9d1c3ed"
+      }
+    ],
+    "createdAt": "2026-05-15T13:53:35.769Z",
+    "updatedAt": "2026-05-15T13:53:35.769Z",
+    "orderId": "FC-MP6Z9XQX-TT3O",
+    "__v": 0
+  },
+  {
+    "_id": "6a080301c44b3e4c163291de",
+    "userId": "6a07fc0bc44b3e4c16329046",
+    "vendorId": null,
+    "productId": "6a07fb59c44b3e4c1632901e",
+    "measurements": {
+      "chest": 97.8,
+      "waist": 58,
+      "shoulder": 47.1,
+      "hip": 75,
+      "inseam": 86.5,
+      "sleeve": 61.9,
+      "neck": 34
+    },
+    "selectedFabric": "silk",
+    "selectedColor": "red",
+    "fitPreference": "regular",
+    "basePrice": 450,
+    "fabricSurcharge": 56,
+    "totalPrice": 506,
+    "status": "confirmed",
+    "vendorAccepted": true,
+    "estimatedDelivery": "2026-05-26T05:39:13.874Z",
+    "deliveryAddress": {
+      "street": "Mahalakshmi Nagar",
+      "city": "Bhathalapalli",
+      "state": "telangana",
+      "pincode": "515661"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-16T05:39:13.879Z",
+        "_id": "6a080301c44b3e4c163291df"
+      }
+    ],
+    "createdAt": "2026-05-16T05:39:13.879Z",
+    "updatedAt": "2026-05-16T05:51:41.345Z",
+    "orderId": "FC-MP7X215J-WGO9",
+    "__v": 0
+  },
+  {
+    "_id": "6a08049bc44b3e4c1632929e",
+    "userId": "6a07fc0bc44b3e4c16329046",
+    "vendorId": "6a044bbe22fd89cad1f7c98c",
+    "productId": "6a044d74043493879bfeaa0d",
+    "measurements": {
+      "chest": 97.8,
+      "waist": 58,
+      "shoulder": 47.1,
+      "hip": 75,
+      "inseam": 86.5,
+      "sleeve": 61.9,
+      "neck": 34
+    },
+    "selectedFabric": "hbkh",
+    "selectedColor": "blue",
+    "fitPreference": "regular",
+    "basePrice": 1234,
+    "fabricSurcharge": 14,
+    "totalPrice": 1248,
+    "status": "pattern",
+    "vendorAccepted": true,
+    "estimatedDelivery": "2026-05-26T05:46:03.394Z",
+    "deliveryAddress": {
+      "street": "fsd",
+      "city": "sadf",
+      "state": "asdf",
+      "pincode": "515661"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-16T05:46:03.397Z",
+        "_id": "6a08049bc44b3e4c1632929f"
+      },
+      {
+        "status": "pattern",
+        "timestamp": "2026-05-16T14:40:19.170Z",
+        "note": "",
+        "_id": "6a0881d3bbcf9970b1ed6f47"
+      },
+      {
+        "status": "pattern",
+        "timestamp": "2026-05-16T14:40:21.687Z",
+        "note": "",
+        "_id": "6a0881d5bbcf9970b1ed6f4d"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-16T14:40:24.492Z",
+        "note": "",
+        "_id": "6a0881d8bbcf9970b1ed6f54"
+      },
+      {
+        "status": "qc",
+        "timestamp": "2026-05-16T14:41:55.970Z",
+        "note": "",
+        "_id": "6a088233bbcf9970b1ed6f74"
+      },
+      {
+        "status": "shipped",
+        "timestamp": "2026-05-16T14:42:35.569Z",
+        "note": "",
+        "_id": "6a08825bbbcf9970b1ed6fdb"
+      },
+      {
+        "status": "pattern",
+        "timestamp": "2026-05-16T14:45:06.283Z",
+        "note": "",
+        "_id": "6a0882f2bbcf9970b1ed7012"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-16T14:58:11.640Z",
+        "note": "",
+        "_id": "6a088603bbcf9970b1ed7053"
+      },
+      {
+        "status": "pattern",
+        "timestamp": "2026-05-16T14:58:19.137Z",
+        "note": "",
+        "_id": "6a08860bbbcf9970b1ed7073"
+      }
+    ],
+    "createdAt": "2026-05-16T05:46:03.397Z",
+    "updatedAt": "2026-05-16T14:58:19.139Z",
+    "orderId": "FC-MP7XAT51-FS1E",
+    "__v": 8
+  },
+  {
+    "_id": "6a08088cc44b3e4c163293fd",
+    "userId": "6a07fc0bc44b3e4c16329046",
+    "vendorId": "6a07fa7bc44b3e4c16329013",
+    "productId": "6a0807fcc44b3e4c1632937e",
+    "measurements": {
+      "chest": 97.8,
+      "waist": 58,
+      "shoulder": 47.1,
+      "hip": 75,
+      "inseam": 86.5,
+      "sleeve": 61.9,
+      "neck": 34
+    },
+    "selectedFabric": "jeans",
+    "selectedColor": "10,6,0",
+    "fitPreference": "regular",
+    "basePrice": 1000,
+    "fabricSurcharge": 150,
+    "totalPrice": 1150,
+    "status": "delivered",
+    "vendorAccepted": true,
+    "estimatedDelivery": "2026-05-26T06:02:52.248Z",
+    "deliveryAddress": {
+      "street": "gandhi nagar",
+      "city": "DMM",
+      "state": "AP",
+      "pincode": "515671"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-16T06:02:52.251Z",
+        "_id": "6a08088cc44b3e4c163293fe"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-16T06:03:39.029Z",
+        "note": "",
+        "_id": "6a0808bbc44b3e4c1632941c"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-16T06:03:42.601Z",
+        "note": "",
+        "_id": "6a0808bec44b3e4c16329422"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-16T06:03:47.900Z",
+        "note": "",
+        "_id": "6a0808c3c44b3e4c16329429"
+      }
+    ],
+    "createdAt": "2026-05-16T06:02:52.251Z",
+    "updatedAt": "2026-05-16T06:03:47.902Z",
+    "orderId": "FC-MP7XWFKR-L3N8",
+    "__v": 3
+  },
+  {
+    "_id": "6a080946c44b3e4c1632949b",
+    "userId": "6a07fc0bc44b3e4c16329046",
+    "vendorId": "6a07fa7bc44b3e4c16329013",
+    "productId": "6a07fb59c44b3e4c1632901e",
+    "measurements": {
+      "chest": 97.8,
+      "waist": 58,
+      "shoulder": 47.1,
+      "hip": 75,
+      "inseam": 86.5,
+      "sleeve": 61.9,
+      "neck": 34
+    },
+    "selectedFabric": "silk",
+    "selectedColor": "red",
+    "fitPreference": "regular",
+    "basePrice": 450,
+    "fabricSurcharge": 56,
+    "totalPrice": 506,
+    "status": "qc",
+    "vendorAccepted": null,
+    "estimatedDelivery": "2026-05-26T06:05:58.993Z",
+    "deliveryAddress": {
+      "street": "mahalakshmi nagar",
+      "city": "btp",
+      "state": "ap",
+      "pincode": "515661"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-16T06:05:58.997Z",
+        "_id": "6a080946c44b3e4c1632949c"
+      },
+      {
+        "status": "pattern",
+        "timestamp": "2026-05-16T06:06:42.007Z",
+        "note": "",
+        "_id": "6a080972c44b3e4c163294ba"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-16T06:07:08.958Z",
+        "note": "",
+        "_id": "6a08098cc44b3e4c163294f2"
+      },
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-16T14:39:58.319Z",
+        "note": "",
+        "_id": "6a0881be40431c7b41f4aaa0"
+      },
+      {
+        "status": "qc",
+        "timestamp": "2026-05-16T14:42:18.302Z",
+        "note": "",
+        "_id": "6a08824a40431c7b41f4aaa8"
+      }
+    ],
+    "createdAt": "2026-05-16T06:05:58.997Z",
+    "updatedAt": "2026-05-16T14:42:18.310Z",
+    "orderId": "FC-MP7Y0FO5-HDIM",
+    "__v": 4
+  },
+  {
+    "_id": "6a08440c4bc813006b900ddc",
+    "userId": "6a0724b56671e8aef9d1c37d",
+    "vendorId": "6a05e258678b24d8c84aea96",
+    "productId": "6a05f817bca5f281399a812e",
+    "measurements": {
+      "chest": 81.6,
+      "waist": 58,
+      "shoulder": 39.2,
+      "hip": 75,
+      "inseam": 75.2,
+      "sleeve": 55,
+      "neck": 34
+    },
+    "selectedFabric": "Standard Viscose Blend",
+    "selectedColor": "Forest Green",
+    "fitPreference": "regular",
+    "basePrice": 4499,
+    "fabricSurcharge": 0,
+    "totalPrice": 4499,
+    "status": "delivered",
+    "vendorAccepted": true,
+    "estimatedDelivery": "2026-05-26T10:16:44.165Z",
+    "deliveryAddress": {
+      "street": "121.gb ",
+      "city": "tirupati",
+      "state": "Andhra Pradesh",
+      "pincode": "516269"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-16T10:16:44.190Z",
+        "_id": "6a08440c4bc813006b900ddd"
+      },
+      {
+        "status": "pattern",
+        "timestamp": "2026-05-16T10:18:26.532Z",
+        "note": "",
+        "_id": "6a0844724bc813006b900e1b"
+      },
+      {
+        "status": "pattern",
+        "timestamp": "2026-05-16T10:18:30.630Z",
+        "note": "",
+        "_id": "6a0844764bc813006b900e21"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-16T10:18:37.599Z",
+        "note": "",
+        "_id": "6a08447d4bc813006b900e28"
+      },
+      {
+        "status": "shipped",
+        "timestamp": "2026-05-16T10:18:43.947Z",
+        "note": "",
+        "_id": "6a0844834bc813006b900e30"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-16T10:18:48.573Z",
+        "note": "",
+        "_id": "6a0844884bc813006b900e39"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-16T10:18:51.729Z",
+        "note": "",
+        "_id": "6a08448b4bc813006b900e43"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-16T10:19:52.851Z",
+        "note": "",
+        "_id": "6a0844c84bc813006b900e75"
+      },
+      {
+        "status": "qc",
+        "timestamp": "2026-05-16T10:19:55.826Z",
+        "note": "",
+        "_id": "6a0844cb4bc813006b900e81"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-16T10:19:59.990Z",
+        "note": "",
+        "_id": "6a0844cf4bc813006b900e8e"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-16T10:20:04.371Z",
+        "note": "",
+        "_id": "6a0844d44bc813006b900e9c"
+      },
+      {
+        "status": "qc",
+        "timestamp": "2026-05-16T10:20:08.320Z",
+        "note": "",
+        "_id": "6a0844d84bc813006b900eab"
+      },
+      {
+        "status": "qc",
+        "timestamp": "2026-05-16T10:20:13.554Z",
+        "note": "",
+        "_id": "6a0844dd4bc813006b900ebb"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-16T10:20:19.044Z",
+        "note": "",
+        "_id": "6a0844e34bc813006b900ecc"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-16T10:20:22.274Z",
+        "note": "",
+        "_id": "6a0844e64bc813006b900ede"
+      }
+    ],
+    "createdAt": "2026-05-16T10:16:44.189Z",
+    "updatedAt": "2026-05-16T10:20:22.277Z",
+    "orderId": "FC-MP86YWM6-TFSI",
+    "__v": 14
+  },
+  {
+    "_id": "6a0877d36447bd2659478e9b",
+    "userId": "6a044bbe22fd89cad1f7c98e",
+    "vendorId": "6a07f89fb11867e374f7851f",
+    "productId": "6a07f8c6b11867e374f78528",
+    "measurements": {
+      "chest": 89.3,
+      "waist": 58,
+      "shoulder": 42.9,
+      "hip": 75,
+      "inseam": 82.3,
+      "sleeve": 57.8,
+      "neck": 34
+    },
+    "selectedFabric": "ddaf",
+    "selectedColor": "hk",
+    "fitPreference": "regular",
+    "basePrice": 13309,
+    "fabricSurcharge": 33,
+    "totalPrice": 13342,
+    "status": "confirmed",
+    "vendorAccepted": null,
+    "estimatedDelivery": "2026-05-26T13:57:39.367Z",
+    "deliveryAddress": {
+      "street": "5-23,saddalaguttapalle,keshapuram,chinnamandem,annamayaa,andhra pradesh-516214",
+      "city": "rayachoti",
+      "state": "ANDHRA PRADESH",
+      "pincode": "516269"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-16T13:57:39.388Z",
+        "_id": "6a0877d36447bd2659478e9c"
+      }
+    ],
+    "createdAt": "2026-05-16T13:57:39.388Z",
+    "updatedAt": "2026-05-16T13:57:39.388Z",
+    "orderId": "FC-MP8EV0E4-VURP",
+    "__v": 0
+  },
+  {
+    "_id": "6a0bedd82a36131b5651a8ff",
+    "userId": "6a044bbe22fd89cad1f7c98e",
+    "vendorId": "6a0803a7b6416b6a39549198",
+    "productId": "6a08828c93f1ccd700cd65e4",
+    "measurements": {
+      "chest": 89.3,
+      "waist": 58,
+      "shoulder": 42.9,
+      "hip": 75,
+      "inseam": 82.3,
+      "sleeve": 57.8,
+      "neck": 34
+    },
+    "selectedFabric": "Cotton",
+    "selectedColor": "white",
+    "fitPreference": "loose",
+    "basePrice": 1499,
+    "fabricSurcharge": 0,
+    "totalPrice": 1499,
+    "status": "delivered",
+    "vendorAccepted": true,
+    "estimatedDelivery": "2026-05-29T04:58:00.421Z",
+    "deliveryAddress": {
+      "street": "5-23,saddalaguttapalle,keshapuram,chinnamandem,annamayaa,andhra pradesh-516214",
+      "city": "rayachoti",
+      "state": "ANDHRA PRADESH",
+      "pincode": "516269"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-19T04:58:00.438Z",
+        "_id": "6a0bedd82a36131b5651a900"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-19T08:53:49.080Z",
+        "note": "",
+        "_id": "6a0c251dca4eb985244b2fd4"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-19T08:54:51.979Z",
+        "note": "",
+        "_id": "6a0c255bca4eb985244b3030"
+      }
+    ],
+    "createdAt": "2026-05-19T04:58:00.437Z",
+    "updatedAt": "2026-05-19T08:54:51.981Z",
+    "orderId": "FC-MPC5WKMU-Q6XJ",
+    "__v": 2
+  },
+  {
+    "_id": "6a0c2475ca4eb985244b2edb",
+    "userId": "6a044bbe22fd89cad1f7c98e",
+    "vendorId": "6a0803a7b6416b6a39549198",
+    "productId": "6a08828c93f1ccd700cd65e4",
+    "measurements": {
+      "chest": 89.3,
+      "waist": 58,
+      "shoulder": 42.9,
+      "hip": 75,
+      "inseam": 82.3,
+      "sleeve": 57.8,
+      "neck": 34
+    },
+    "selectedFabric": "Cotton",
+    "selectedColor": "white",
+    "fitPreference": "regular",
+    "basePrice": 1499,
+    "fabricSurcharge": 0,
+    "totalPrice": 1499,
+    "status": "delivered",
+    "vendorAccepted": true,
+    "estimatedDelivery": "2026-05-29T08:51:01.389Z",
+    "deliveryAddress": {
+      "street": "khajipet mandal,bosireddypalle",
+      "city": "kadapa",
+      "state": "andhrapradesh",
+      "pincode": "516203"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-19T08:51:01.400Z",
+        "_id": "6a0c2475ca4eb985244b2edc"
+      },
+      {
+        "status": "stitching",
+        "timestamp": "2026-05-19T08:53:42.306Z",
+        "note": "",
+        "_id": "6a0c2516ca4eb985244b2fcf"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-19T08:54:49.068Z",
+        "note": "",
+        "_id": "6a0c2559ca4eb985244b302a"
+      },
+      {
+        "status": "shipped",
+        "timestamp": "2026-05-19T08:54:57.284Z",
+        "note": "",
+        "_id": "6a0c2561ca4eb985244b3037"
+      },
+      {
+        "status": "qc",
+        "timestamp": "2026-05-19T08:55:00.285Z",
+        "note": "",
+        "_id": "6a0c2564ca4eb985244b303f"
+      },
+      {
+        "status": "delivered",
+        "timestamp": "2026-05-19T08:55:23.842Z",
+        "note": "",
+        "_id": "6a0c257bca4eb985244b3060"
+      }
+    ],
+    "createdAt": "2026-05-19T08:51:01.398Z",
+    "updatedAt": "2026-05-19T08:55:23.844Z",
+    "orderId": "FC-MPCE88EV-EUZ6",
+    "__v": 5
+  },
+  {
+    "_id": "6a194bd6f4fd99f520c54d54",
+    "userId": "6a044bbe22fd89cad1f7c98e",
+    "vendorId": "6a0803a7b6416b6a39549198",
+    "productId": "6a08828c93f1ccd700cd65e4",
+    "measurements": {
+      "chest": 94.4,
+      "waist": 58,
+      "shoulder": 45.3,
+      "hip": 75,
+      "inseam": 86.9,
+      "sleeve": 61.1,
+      "neck": 34
+    },
+    "selectedFabric": "Cotton",
+    "selectedColor": "white",
+    "fitPreference": "regular",
+    "basePrice": 1499,
+    "fabricSurcharge": 0,
+    "totalPrice": 1499,
+    "status": "confirmed",
+    "vendorAccepted": null,
+    "estimatedDelivery": "2026-06-08T08:18:30.524Z",
+    "deliveryAddress": {
+      "street": "5-23,saddalaguttapalle,keshapuram,chinnamandem,annamayaa,andhra pradesh-516214",
+      "city": "rayachoti",
+      "state": "ANDHRA PRADESH",
+      "pincode": "516269"
+    },
+    "statusHistory": [
+      {
+        "status": "confirmed",
+        "timestamp": "2026-05-29T08:18:30.530Z",
+        "_id": "6a194bd6f4fd99f520c54d55"
+      }
+    ],
+    "createdAt": "2026-05-29T08:18:30.529Z",
+    "updatedAt": "2026-05-29T08:18:30.529Z",
+    "orderId": "FC-MPQNGXS2-H8G4",
+    "__v": 0
+  }
+]
