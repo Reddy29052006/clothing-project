@@ -4,12 +4,12 @@ import { selectCurrentUser } from '../../../store/slices/authSlice';
 import {
   useGetAdminStatsQuery,
   useGetAdminOrdersQuery,
-  useGetAdminVendorsQuery,
-  useVerifyVendorMutation,
+  useGetAdminTailorsQuery,
+  useVerifyTailorsMutation,
 } from '../../../services/adminApi';
 import AdminStats from './components/AdminStats';
 import AdminOrdersTable from './components/AdminOrdersTable';
-import AdminVendorsList from './components/AdminVendorsList';
+import AdminTailorsList from './components/AdminTailorsList';
 import './AdminDashboard.css';
 
 const AdminDashboard = () => {
@@ -19,19 +19,19 @@ const AdminDashboard = () => {
 
   const { data: sd, isLoading: statsLoading } = useGetAdminStatsQuery();
   const { data: od, isLoading: ordersLoading } = useGetAdminOrdersQuery(filterStatus ? { status: filterStatus } : undefined);
-  const { data: vd, isLoading: vendorsLoading } = useGetAdminVendorsQuery();
-  const [verifyVendor] = useVerifyVendorMutation();
+  const { data: vd, isLoading: tailorsLoading } = useGetAdminTailorsQuery();
+  const [verifyTailors] = useVerifyTailorsMutation();
 
   const stats = sd?.stats || {};
   const orders = od?.orders || [];
-  const vendors = vd?.vendors || [];
+  const tailors = vd?.tailors || [];
 
-  const handleVerify = async (vendorId, isVerified) => {
-    try { await verifyVendor({ vendorId, isVerified }).unwrap(); }
-    catch { alert('Failed to update vendor.'); }
+  const handleVerify = async (tailorsId, isVerified) => {
+    try { await verifyTailors({ tailorsId, isVerified }).unwrap(); }
+    catch { alert('Failed to update tailors.'); }
   };
 
-  const loading = statsLoading || ordersLoading || vendorsLoading;
+  const loading = statsLoading || ordersLoading || tailorsLoading;
 
   if (loading) return <div className="loading-screen"><div className="spinner spinner--lg spinner--gold" /></div>;
 
@@ -49,7 +49,7 @@ const AdminDashboard = () => {
 
         {/* Tabs */}
         <div className="dashboard-tabs">
-          {['orders', 'vendors'].map((t) => (
+          {['orders', 'tailors'].map((t) => (
             <button key={t} className={`dashboard-tab ${activeTab === t ? 'active' : ''}`} onClick={() => setActiveTab(t)}>
               {t.charAt(0).toUpperCase() + t.slice(1)}
             </button>
@@ -61,8 +61,8 @@ const AdminDashboard = () => {
           <AdminOrdersTable orders={orders} filterStatus={filterStatus} setFilterStatus={setFilterStatus} />
         )}
 
-        {activeTab === 'vendors' && (
-          <AdminVendorsList vendors={vendors} handleVerify={handleVerify} />
+        {activeTab === 'tailors' && (
+          <AdminTailorsList tailors={tailors} handleVerify={handleVerify} />
         )}
       </div>
     </div>

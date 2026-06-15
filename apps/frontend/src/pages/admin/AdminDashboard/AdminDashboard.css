@@ -99,27 +99,27 @@
   background: var(--color-surface-2);
 }
 
-/* ── Vendor Cards ───────────────────────────────────────── */
-.admin-vendors {
+/* ── Tailors Cards ───────────────────────────────────────── */
+.admin-tailors {
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
 
-.admin-vendor-card {
+.admin-tailors-card {
   display: grid;
   grid-template-columns: 1fr auto auto;
   gap: var(--space-6);
   align-items: center;
 }
 
-.admin-vendor-card__left {
+.admin-tailors-card__left {
   display: flex;
   gap: var(--space-4);
   align-items: flex-start;
 }
 
-.admin-vendor-card__avatar {
+.admin-tailors-card__avatar {
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -133,24 +133,24 @@
   flex-shrink: 0;
 }
 
-.admin-vendor-card__name {
+.admin-tailors-card__name {
   font-family: var(--font-heading);
   font-size: var(--text-xl);
   color: var(--color-primary);
   margin-bottom: 2px;
 }
 
-.admin-vendor-card__email {
+.admin-tailors-card__email {
   font-size: var(--text-xs);
   color: var(--color-text-muted);
 }
 
-.admin-vendor-card__stats {
+.admin-tailors-card__stats {
   display: flex;
   gap: var(--space-6);
 }
 
-.admin-vendor-stat {
+.admin-tailors-stat {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -159,12 +159,12 @@
   color: var(--color-text-muted);
 }
 
-.admin-vendor-stat strong {
+.admin-tailors-stat strong {
   font-size: var(--text-lg);
   color: var(--color-primary);
 }
 
-.admin-vendor-card__actions {
+.admin-tailors-card__actions {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -177,7 +177,7 @@
 
 @media (max-width: 700px) {
   .admin-stats { grid-template-columns: repeat(2, 1fr); }
-  .admin-vendor-card { grid-template-columns: 1fr; gap: var(--space-4); }
-  .admin-vendor-card__stats { justify-content: flex-start; }
-  .admin-vendor-card__actions { align-items: flex-start; flex-direction: row; }
+  .admin-tailors-card { grid-template-columns: 1fr; gap: var(--space-4); }
+  .admin-tailors-card__stats { justify-content: flex-start; }
+  .admin-tailors-card__actions { align-items: flex-start; flex-direction: row; }
 }

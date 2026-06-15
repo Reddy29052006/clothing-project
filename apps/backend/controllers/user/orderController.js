@@ -1,6 +1,6 @@
 const Order = require('../../models/Order');
 const Product = require('../../models/Product');
-const Vendor = require('../../models/Vendor');
+const Tailors = require('../../models/Tailors');
 const Measurement = require('../../models/Measurement');
 
 // @desc    Create order
@@ -30,7 +30,7 @@ const createOrder = async (req, res, next) => {
 
     const order = await Order.create({
       userId: req.user._id,
-      vendorId: product.vendorId, // using  vendorId from the product
+      tailorsId: product.tailorsId, // using  tailorsId from the product
       productId,
       measurements: {
         chest: measurement.chest,
@@ -82,12 +82,16 @@ const getOrder = async (req, res, next) => {
     const order = await Order.findById(req.params.id)
       .populate('productId', 'name category images primaryImage')
       .populate('userId', 'name email')
-      .populate('vendorId', 'name email');
+      .populate('tailorsId', 'name email');
 
     if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
 
-    // Ensure user can only see their own orders (vendor/admin can see all)
-    if (req.user.role === 'user' && order.userId._id.toString() !== req.user._id.toString()) {
+    // Ensure user can only see their own orders (assigned tailor or admin can see all)
+    const isCreator = order.userId && order.userId._id.toString() === req.user._id.toString();
+    const isAssignedTailor = order.tailorsId && order.tailorsId._id.toString() === req.user._id.toString();
+    const isAdmin = req.user.role === 'admin';
+
+    if (!isCreator && !isAssignedTailor && !isAdmin) {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
 
@@ -97,9 +101,9 @@ const getOrder = async (req, res, next) => {
   }
 };
 
-// @desc    Vendor updates order status
+// @desc    Tailors updates order status
 // @route   PUT /api/orders/:id/status
-// @access  Private (vendor/admin)
+// @access  Private (tailors/admin)
 const updateOrderStatus = async (req, res, next) => {
   try {
     const { status, note } = req.body;
@@ -112,15 +116,15 @@ const updateOrderStatus = async (req, res, next) => {
     const order = await Order.findById(req.params.id);
     if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
 
-    if (req.user.role === 'vendor' && order.vendorId?.toString() !== req.user._id.toString()) {
+    if (req.user.role === 'tailors' && order.tailorsId?.toString() !== req.user._id.toString()) {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
 
     order.status = status;
     order.statusHistory.push({ status, timestamp: new Date(), note });
 
-    if (status === 'delivered' && order.vendorId) {
-      await Vendor.findOneAndUpdate({ userId: order.vendorId }, { $inc: { totalCompleted: 1 } });
+    if (status === 'delivered' && order.tailorsId) {
+      await Tailors.findOneAndUpdate({ userId: order.tailorsId }, { $inc: { totalCompleted: 1 } });
     }
 
     await order.save();
@@ -130,9 +134,9 @@ const updateOrderStatus = async (req, res, next) => {
   }
 };
 
-// @desc    Vendor accepts/rejects order
+// @desc    Tailors accepts/rejects order
 // @route   PUT /api/orders/:id/accept
-// @access  Private (vendor)
+// @access  Private (tailors)
 const acceptOrder = async (req, res, next) => {
   try {
     const { accepted } = req.body;
@@ -140,11 +144,11 @@ const acceptOrder = async (req, res, next) => {
 
     if (!order) return res.status(404).json({ success: false, message: 'Order not found' });
 
-    order.vendorAccepted = accepted;
+    order.tailorsAccepted = accepted;
     if (!accepted) {
-      order.vendorId = null;
-      // Update vendor rejected count
-      await Vendor.findOneAndUpdate({ userId: req.user._id }, { $inc: { totalRejected: 1 } });
+      order.tailorsId = null;
+      // Update tailors rejected count
+      await Tailors.findOneAndUpdate({ userId: req.user._id }, { $inc: { totalRejected: 1 } });
     }
 
     await order.save();
@@ -154,12 +158,12 @@ const acceptOrder = async (req, res, next) => {
   }
 };
 
-// @desc    Get vendor's assigned orders
-// @route   GET /api/orders/vendor
-// @access  Private (vendor)
-const getVendorOrders = async (req, res, next) => {
+// @desc    Get tailors's assigned orders
+// @route   GET /api/orders/tailors
+// @access  Private (tailors)
+const getTailorsOrders = async (req, res, next) => {
   try {
-    const orders = await Order.find({ vendorId: req.user._id })
+    const orders = await Order.find({ tailorsId: req.user._id })
       .populate('productId', 'name category images primaryImage')
       .populate('userId', 'name email phone')
       .sort({ createdAt: -1 });
@@ -170,4 +174,4 @@ const getVendorOrders = async (req, res, next) => {
   }
 };
 
-module.exports = { createOrder, getMyOrders, getOrder, updateOrderStatus, acceptOrder, getVendorOrders };
+module.exports = { createOrder, getMyOrders, getOrder, updateOrderStatus, acceptOrder, getTailorsOrders };

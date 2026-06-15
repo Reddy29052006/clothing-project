@@ -1,0 +1,143 @@
+/* ── Open Orders Job Board Styles ────────────────────────── */
+
+.open-orders-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-6);
+  position: relative;
+}
+
+.open-orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+/* ── Live Toast Notifications ──────────────────────────────── */
+.live-notifications-panel {
+  position: fixed;
+  top: 90px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1100;
+  max-width: 380px;
+  width: calc(100% - 48px);
+}
+
+.live-toast {
+  background: var(--color-primary, #0a332d);
+  color: var(--color-bg, #ffffff);
+  border: 1px solid var(--color-gold, #c5a059);
+  border-radius: var(--radius-md, 8px);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4);
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm, 14px);
+  line-height: var(--leading-normal);
+}
+
+.toast-icon {
+  color: var(--color-gold, #c5a059);
+  flex-shrink: 0;
+}
+
+.toast-close {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 2px;
+  transition: color var(--transition-fast);
+}
+
+.toast-close:hover {
+  color: var(--color-bg, #ffffff);
+}
+
+/* ── Open Order Cards ────────────────────────────────────── */
+.open-orders-container {
+  min-height: 400px;
+}
+
+.open-orders-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+.open-order-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.open-order-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.broadcast-status-badge {
+  font-size: 11px;
+  font-weight: var(--weight-bold);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(197, 160, 89, 0.1);
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold);
+}
+
+.w-full {
+  width: 100%;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fadeUp {
+  animation: slideUp 0.4s ease-out forwards;
+}

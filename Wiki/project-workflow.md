@@ -21,7 +21,7 @@
 ### Key Features:
 - ✅ **Custom-Tailored Fit**: Enter individual body measurements for perfect garment fit
 - ✅ **Product Customization**: Select fabrics, colors, styles, and fits dynamically
-- ✅ **Interactive Dashboards**: Tailored dashboards for customers, vendors, and admins
+- ✅ **Interactive Dashboards**: Tailored dashboards for customers, tailors, and admins
 - ✅ **Order Tracking**: Track custom garment from selection to delivery
 - ✅ **Feedback System**: Continuous improvement through customer feedback
 
@@ -91,7 +91,7 @@ FitCraft has **3 main user roles** with distinct responsibilities:
 | Submit Feedback | ✅ |
 | View Dashboard | ✅ (My Orders) |
 | Accept Orders | ❌ |
-| Verify Vendors | ❌ |
+| Verify Tailors | ❌ |
 | View Admin Stats | ❌ |
 
 **Key Endpoints:**
@@ -103,7 +103,7 @@ FitCraft has **3 main user roles** with distinct responsibilities:
 
 ---
 
-### 2️⃣ VENDOR (Tailor/Seller Role) 🧵
+### 2️⃣ TAILORS (Tailor/Seller Role) 🧵
 
 **What they can do:**
 | Action | Permission |
@@ -114,8 +114,8 @@ FitCraft has **3 main user roles** with distinct responsibilities:
 | Accept/Reject Orders | ✅ |
 | Update Order Status | ✅ |
 | Track Performance Metrics | ✅ |
-| View Dashboard | ✅ (Vendor Stats) |
-| Verify Other Vendors | ❌ |
+| View Dashboard | ✅ (Tailors Stats) |
+| Verify Other Tailors | ❌ |
 | View Admin Stats | ❌ |
 
 **Specializations Available:**
@@ -133,12 +133,12 @@ FitCraft has **3 main user roles** with distinct responsibilities:
 - Verification Status
 
 **Key Endpoints:**
-- `POST /api/auth/register` - Register as vendor
-- `GET /api/vendor/products` - View my products
-- `POST /api/vendor/products` - Add new product
-- `GET /api/vendor/orders` - View my orders
-- `PUT /api/vendor/orders/:id/accept` - Accept/reject order
-- `PUT /api/vendor/orders/:id/status` - Update order status
+- `POST /api/auth/register` - Register as tailors
+- `GET /api/tailors/products` - View my products
+- `POST /api/tailors/products` - Add new product
+- `GET /api/tailors/orders` - View my orders
+- `PUT /api/tailors/orders/:id/accept` - Accept/reject order
+- `PUT /api/tailors/orders/:id/status` - Update order status
 
 ---
 
@@ -149,8 +149,8 @@ FitCraft has **3 main user roles** with distinct responsibilities:
 |--------|-----------|
 | View All Orders | ✅ |
 | View All Users | ✅ |
-| View All Vendors | ✅ |
-| Verify/Unverify Vendors | ✅ |
+| View All Tailors | ✅ |
+| Verify/Unverify Tailors | ✅ |
 | View Platform Statistics | ✅ |
 | Monitor Revenue | ✅ |
 | Filter Orders by Status | ✅ |
@@ -159,7 +159,7 @@ FitCraft has **3 main user roles** with distinct responsibilities:
 **Dashboard Statistics:**
 - Total Orders Count
 - Total Users Count
-- Total Vendors Count
+- Total Tailors Count
 - Pending Orders Count
 - Delivered Orders Count
 - Total Revenue
@@ -167,8 +167,8 @@ FitCraft has **3 main user roles** with distinct responsibilities:
 **Key Endpoints:**
 - `GET /api/admin/stats` - Platform statistics
 - `GET /api/admin/orders` - All orders (with filters)
-- `GET /api/admin/vendors` - All vendors (sorted by rating)
-- `PUT /api/admin/vendors/:vendorId/verify` - Verify vendor
+- `GET /api/admin/tailors` - All tailors (sorted by rating)
+- `PUT /api/admin/tailors/:tailorsId/verify` - Verify tailors
 
 ---
 
@@ -183,7 +183,7 @@ FitCraft has **3 main user roles** with distinct responsibilities:
 
 STEP 1: USER REGISTRATION
 ├─ Customer registers → Creates account with "user" role
-├─ Vendor registers → Creates account with "vendor" role + shop name
+├─ Tailors registers → Creates account with "tailors" role + shop name
 └─ Admin → Pre-created with "admin" role
 
 STEP 2: CUSTOMER JOURNEY
@@ -198,16 +198,16 @@ STEP 2: CUSTOMER JOURNEY
 ├─ Create Custom Order
 │  ├─ Select: product, fabric, color, fit preference
 │  ├─ Backend automatically uses saved measurements
-│  └─ Order Status: "pending" (waiting for vendor assignment)
+│  └─ Order Status: "pending" (waiting for tailors assignment)
 │
 └─ Track Order & Provide Feedback
    ├─ View order status history
    ├─ Status progression: pending → confirmed → pattern → stitching → QC → shipped → delivered
    └─ Submit feedback: tight/perfect/loose (for measurements adjustment)
 
-STEP 3: VENDOR JOURNEY
+STEP 3: TAILORS JOURNEY
 ├─ Receive Order Notification
-│  └─ Order appears in vendor dashboard
+│  └─ Order appears in tailors dashboard
 │
 ├─ Accept/Reject Order
 │  ├─ Review customer measurements & product details
@@ -215,7 +215,7 @@ STEP 3: VENDOR JOURNEY
 │     Reject: order status → "rejected"
 │
 ├─ Update Order Status (as work progresses)
-│  ├─ "confirmed" → Order confirmed by vendor
+│  ├─ "confirmed" → Order confirmed by tailors
 │  ├─ "pattern" → Pattern prepared
 │  ├─ "stitching" → Garment being stitched
 │  ├─ "qc" → Quality check in progress
@@ -226,18 +226,18 @@ STEP 3: VENDOR JOURNEY
    ├─ Each completed order increases "totalCompleted"
    ├─ Each rejected order increases "totalRejected"
    ├─ Rating automatically calculated (0-5 stars)
-   └─ Admin can verify vendor based on performance
+   └─ Admin can verify tailors based on performance
 
 STEP 4: ADMIN OVERSIGHT
 ├─ Monitor Platform Health
-│  ├─ View dashboard stats (orders, users, vendors, revenue)
+│  ├─ View dashboard stats (orders, users, tailors, revenue)
 │  ├─ Filter orders by status
 │  └─ Track pending vs completed orders
 │
-└─ Manage Vendors
-   ├─ Verify new vendors (quality assurance)
-   ├─ Unverify problematic vendors
-   └─ View vendor performance metrics
+└─ Manage Tailors
+   ├─ Verify new tailors (quality assurance)
+   ├─ Unverify problematic tailors
+   └─ View tailors performance metrics
 ```
 
 ### **Order Lifecycle**
@@ -246,10 +246,10 @@ STEP 4: ADMIN OVERSIGHT
 ┌──────────┐
 │  Pending │  ← Customer creates order
 └────┬─────┘
-     │ (Vendor sees order)
+     │ (Tailors sees order)
      ↓
 ┌──────────────┐
-│  Confirmed   │  ← Vendor accepts order
+│  Confirmed   │  ← Tailors accepts order
 └────┬─────────┘
      │
      ↓
@@ -310,24 +310,24 @@ Display Order Summary
 to Customer
 ```
 
-### Vendor Order Status Update Flow
+### Tailors Order Status Update Flow
 
 ```
-Vendor Dashboard                Backend (Express)              Database (MongoDB)
+Tailors Dashboard                Backend (Express)              Database (MongoDB)
 ──────────────────────────────────────────────────────────────────────────────
 
-Vendor updates status
+Tailors updates status
 (e.g., "confirmed" → "pattern")
         │
-        ├─→ PUT /api/vendor/orders/:id/status ──→ orderController.updateOrderStatus()
+        ├─→ PUT /api/tailors/orders/:id/status ──→ orderController.updateOrderStatus()
         │                                          │
-        │                                          ├─→ Verify vendor owns order
+        │                                          ├─→ Verify tailors owns order
         │                                          │
         │                                          ├─→ Update Order.status
         │                                          │
         │                                          ├─→ Add to statusHistory array
         │                                          │
-        │                                          ├─→ If delivered: increment vendor.totalCompleted
+        │                                          ├─→ If delivered: increment tailors.totalCompleted
         │                                          │
         │                                          └─→ Save to Database ──→ Order updated
         │                                                                   │
@@ -344,21 +344,21 @@ Refresh order list
 Admin Dashboard                 Backend (Express)              Database (MongoDB)
 ──────────────────────────────────────────────────────────────────────────────
 
-Admin reviews vendor
+Admin reviews tailors
 performance
         │
-        ├─→ PUT /api/admin/vendors/:vendorId/verify ──→ adminController.verifyVendor()
+        ├─→ PUT /api/admin/tailors/:tailorsId/verify ──→ adminController.verifyTailors()
         │                                              │
-        │                                              ├─→ Update Vendor.isVerified
+        │                                              ├─→ Update Tailors.isVerified
         │                                              │
-        │                                              └─→ Save to Database ──→ Vendor updated
+        │                                              └─→ Save to Database ──→ Tailors updated
         │                                                                      │
         ←────────── Success Response ←───────────────────────────────────────┤
-        │                          + Updated vendor
+        │                          + Updated tailors
         │                          + Verification status
         │
 Show verified badge
-to vendor
+to tailors
 ```
 
 ---

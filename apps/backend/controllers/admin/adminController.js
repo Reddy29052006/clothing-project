@@ -1,6 +1,6 @@
 const Order = require('../../models/Order');
 const User = require('../../models/User');
-const Vendor = require('../../models/Vendor');
+const Tailors = require('../../models/Tailors');
 
 // @desc    Get all orders (admin)
 // @route   GET /api/admin/orders
@@ -16,7 +16,7 @@ const getAllOrders = async (req, res, next) => {
     const orders = await Order.find(filter)
       .populate('userId', 'name email phone')
       .populate('productId', 'name category primaryImage')
-      .populate('vendorId', 'name email')
+      .populate('tailorsId', 'name email')
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(parseInt(limit));
@@ -33,13 +33,13 @@ const getAllOrders = async (req, res, next) => {
 
 
 
-// @desc    Get all vendors with stats
-// @route   GET /api/admin/vendors
+// @desc    Get all tailors with stats
+// @route   GET /api/admin/tailors
 // @access  Private/Admin
-const getAllVendors = async (req, res, next) => {
+const getAllTailors = async (req, res, next) => {
   try {
-    const vendors = await Vendor.find().populate('userId', 'name email phone').sort({ rating: -1 });
-    res.json({ success: true, vendors });
+    const tailors = await Tailors.find().populate('userId', 'name email phone').sort({ rating: -1 });
+    res.json({ success: true, tailors });
   } catch (error) {
     next(error);
   }
@@ -50,10 +50,10 @@ const getAllVendors = async (req, res, next) => {
 // @access  Private/Admin
 const getStats = async (req, res, next) => {
   try {
-    const [totalOrders, totalUsers, totalVendors, pendingOrders, deliveredOrders] = await Promise.all([
+    const [totalOrders, totalUsers, totalTailors, pendingOrders, deliveredOrders] = await Promise.all([
       Order.countDocuments(),
       User.countDocuments({ role: 'user' }),
-      User.countDocuments({ role: 'vendor' }),
+      User.countDocuments({ role: 'tailors' }),
       Order.countDocuments({ status: { $in: ['confirmed', 'pattern', 'stitching', 'qc'] } }),
       Order.countDocuments({ status: 'delivered' }),
     ]);
@@ -66,25 +66,25 @@ const getStats = async (req, res, next) => {
 
     res.json({
       success: true,
-      stats: { totalOrders, totalUsers, totalVendors, pendingOrders, deliveredOrders, totalRevenue },
+      stats: { totalOrders, totalUsers, totalTailors, pendingOrders, deliveredOrders, totalRevenue },
     });
   } catch (error) {
     next(error);
   }
 };
 
-// @desc    Verify/unverify vendor
-// @route   PUT /api/admin/vendors/:vendorId/verify
+// @desc    Verify/unverify tailors
+// @route   PUT /api/admin/tailors/:tailorsId/verify
 // @access  Private/Admin
-const verifyVendor = async (req, res, next) => {
+const verifyTailors = async (req, res, next) => {
   try {
     const { isVerified } = req.body;
-    const vendor = await Vendor.findByIdAndUpdate(req.params.vendorId, { isVerified }, { new: true });
-    if (!vendor) return res.status(404).json({ success: false, message: 'Vendor not found' });
-    res.json({ success: true, vendor });
+    const tailors = await Tailors.findByIdAndUpdate(req.params.tailorsId, { isVerified }, { new: true });
+    if (!tailors) return res.status(404).json({ success: false, message: 'Tailors not found' });
+    res.json({ success: true, tailors });
   } catch (error) {
     next(error);
   }
 };
 
-module.exports = { getAllOrders, getAllVendors, getStats, verifyVendor };
+module.exports = { getAllOrders, getAllTailors, getStats, verifyTailors };

@@ -1,0 +1,38 @@
+/* Tailors Layout & Shared Tailors Styles */
+
+.tailors-dashboard-wrapper {
+  flex: 1;
+  background-color: var(--color-surface-2);
+  min-height: 100vh;
+  padding-top: var(--nav-height);
+}
+
+.tailors-navbar-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.tailors-logo-tag {
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-top: 2px;
+}
+
+/* Tailors Form Enhancements */
+.tailors-form-section {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.tailors-color-picker {
+  width: 60px;
+  padding: 2px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}

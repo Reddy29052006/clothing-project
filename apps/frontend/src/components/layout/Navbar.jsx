@@ -5,7 +5,9 @@ import {
   selectCurrentUser,
   selectIsAuthenticated,
   selectIsAdmin,
-  selectIsVendor,
+  selectIsTailors,
+  selectIsUser,
+  selectIsClient,
   logout,
 } from '../../store/slices/authSlice';
 
@@ -20,7 +22,9 @@ const Navbar = () => {
   const user = useSelector(selectCurrentUser);
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const isAdmin = useSelector(selectIsAdmin);
-  const isVendor = useSelector(selectIsVendor);
+  const isTailors = useSelector(selectIsTailors);
+  const isUser = useSelector(selectIsUser);
+  const isClient = useSelector(selectIsClient);
   const itemCount = useSelector(selectCartCount);
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -51,7 +55,8 @@ const Navbar = () => {
 
   const getDashboardLink = () => {
     if (isAdmin) return '/admin';
-    if (isVendor) return '/vendor';
+    if (isTailors) return '/tailors';
+    if (isClient) return '/custom-orders';
     return '/dashboard';
   };
 
@@ -67,9 +72,19 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <nav className="navbar__nav" aria-label="Main Navigation">
-          <Link to="/products" className={`navbar__link ${isActive('/products') ? 'active' : ''}`}>Collections</Link>
-          <Link to="/measure" className={`navbar__link ${isActive('/measure') ? 'active' : ''}`}>Get Measured</Link>
-          {isAuthenticated && (
+          {!isClient && (
+            <>
+              <Link to="/products" className={`navbar__link ${isActive('/products') ? 'active' : ''}`}>Collections</Link>
+              <Link to="/measure" className={`navbar__link ${isActive('/measure') ? 'active' : ''}`}>Get Measured</Link>
+            </>
+          )}
+          {isAuthenticated && isClient && (
+            <Link to="/custom-orders" className={`navbar__link ${isActive('/custom-orders') ? 'active' : ''}`}>Custom Tailoring</Link>
+          )}
+          {isAuthenticated && isTailors && (
+            <Link to="/tailors/tailoring" className={`navbar__link ${isActive('/tailors/tailoring') ? 'active' : ''}`}>Tailoring Jobs</Link>
+          )}
+          {isAuthenticated && isUser && (
             <Link to="/orders" className={`navbar__link ${isActive('/orders') ? 'active' : ''}`}>My Orders</Link>
           )}
         </nav>
@@ -79,7 +94,7 @@ const Navbar = () => {
           {isAuthenticated ? (
             <>
               {/* Cart — only for user role */}
-              {!isAdmin && !isVendor && (
+              {isUser && (
                 <Link to="/cart" className="navbar__cart-btn" aria-label="Cart">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
@@ -106,14 +121,20 @@ const Navbar = () => {
                     <div className="navbar__dropdown-header">
                       <p className="navbar__dropdown-name">{user?.name}</p>
                       <p className="navbar__dropdown-email">{user?.email}</p>
-                      <span className={`badge badge--${user?.role === 'admin' ? 'primary' : user?.role === 'vendor' ? 'gold' : 'success'}`}>
+                      <span className={`badge badge--${user?.role === 'admin' ? 'primary' : user?.role === 'tailors' ? 'gold' : user?.role === 'client' ? 'purple' : 'success'}`}>
                         {user?.role}
                       </span>
                     </div>
                     <div className="divider" style={{ margin: '0.5rem 0' }} />
                     <Link to={getDashboardLink()} className="navbar__dropdown-item">Dashboard</Link>
-                    {!isAdmin && !isVendor && (
+                    {isClient && (
+                      <Link to="/custom-orders" className="navbar__dropdown-item">Custom Tailoring</Link>
+                    )}
+                    {isUser && (
                       <Link to="/orders" className="navbar__dropdown-item">My Orders</Link>
+                    )}
+                    {isTailors && (
+                      <Link to="/tailors/tailoring" className="navbar__dropdown-item">Tailoring Jobs</Link>
                     )}
                     <button onClick={handleLogout} className="navbar__dropdown-item navbar__dropdown-item--danger">
                       Sign Out
@@ -145,11 +166,23 @@ const Navbar = () => {
       {menuOpen && (
         <div className="navbar__mobile animate-fadeDown">
           <nav className="navbar__mobile-nav">
-            <Link to="/products" className="navbar__mobile-link">Collections</Link>
-            <Link to="/measure" className="navbar__mobile-link">Get Measured</Link>
+            {!isClient && (
+              <>
+                <Link to="/products" className="navbar__mobile-link">Collections</Link>
+                <Link to="/measure" className="navbar__mobile-link">Get Measured</Link>
+              </>
+            )}
             {isAuthenticated && (
               <>
-                <Link to="/orders" className="navbar__mobile-link">My Orders</Link>
+                {isClient && (
+                  <Link to="/custom-orders" className="navbar__mobile-link">Custom Tailoring</Link>
+                )}
+                {isTailors && (
+                  <Link to="/tailors/tailoring" className="navbar__mobile-link">Tailoring Jobs</Link>
+                )}
+                {isUser && (
+                  <Link to="/orders" className="navbar__mobile-link">My Orders</Link>
+                )}
                 <Link to={getDashboardLink()} className="navbar__mobile-link">Dashboard</Link>
                 <button onClick={handleLogout} className="navbar__mobile-link navbar__mobile-link--danger">Sign Out</button>
               </>

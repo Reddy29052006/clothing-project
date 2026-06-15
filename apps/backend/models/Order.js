@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    vendorId: {
+    tailorsId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       default: null,
@@ -58,8 +58,8 @@ const orderSchema = new mongoose.Schema(
       default: 'confirmed',
     },
     statusHistory: [orderStatusHistorySchema],
-    // Vendor
-    vendorAccepted: { type: Boolean, default: null },
+    // Tailors
+    tailorsAccepted: { type: Boolean, default: null },
     estimatedDelivery: { type: Date },
     // Delivery address
     deliveryAddress: {
@@ -87,6 +87,6 @@ orderSchema.pre('save', async function (next) {
 });
 
 orderSchema.index({ userId: 1, createdAt: -1 });
-orderSchema.index({ vendorId: 1, status: 1 });
+orderSchema.index({ tailorsId: 1, status: 1 });
 
 module.exports = mongoose.model('Order', orderSchema);

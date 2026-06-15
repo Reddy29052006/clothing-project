@@ -100,7 +100,7 @@ const ProductCustomization = () => {
   return (
     <div className="customize-page">
       <div className="customize-breadcrumb container">
-        <button className="btn btn--ghost btn--sm" onClick={() => navigate(isOwner ? '/vendor/products' : '/products')}>
+        <button className="btn btn--ghost btn--sm" onClick={() => navigate(isOwner ? '/tailors/products' : '/products')}>
           <ArrowLeft size={14} /> Collections
         </button>
         <span className="customize-breadcrumb__sep">/</span>

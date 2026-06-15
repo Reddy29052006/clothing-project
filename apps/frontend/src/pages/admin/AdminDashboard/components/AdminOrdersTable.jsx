@@ -21,7 +21,7 @@ const AdminOrdersTable = ({ orders, filterStatus, setFilterStatus }) => {
       <div className="admin-table-wrapper">
         <table className="admin-table">
           <thead>
-            <tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Status</th><th>Vendor</th><th>Amount</th></tr>
+            <tr><th>Order ID</th><th>Customer</th><th>Product</th><th>Status</th><th>Tailors</th><th>Amount</th></tr>
           </thead>
           <tbody>
             {orders.map((order) => (
@@ -35,7 +35,7 @@ const AdminOrdersTable = ({ orders, filterStatus, setFilterStatus }) => {
                 </td>
                 <td style={{ fontSize: 'var(--text-sm)' }}>{order.productId?.name || '—'}</td>
                 <td><span className={`badge badge--${STATUS_COLORS[order.status] || 'neutral'}`}>{STATUS_LABEL[order.status] || order.status}</span></td>
-                <td style={{ fontSize: 'var(--text-sm)' }}>{order.vendorId?.name || <span style={{ color: 'var(--color-text-light)' }}>Unassigned</span>}</td>
+                <td style={{ fontSize: 'var(--text-sm)' }}>{order.tailorsId?.name || <span style={{ color: 'var(--color-text-light)' }}>Unassigned</span>}</td>
                 <td style={{ fontWeight: 500 }}>₹{order.totalPrice?.toLocaleString('en-IN')}</td>
               </tr>
             ))}

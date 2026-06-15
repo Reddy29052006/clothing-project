@@ -56,7 +56,8 @@ export const selectIsAuthenticated = (state) => !!state.auth.token;
 export const selectAuthLoading = (state) => state.auth.loading;
 export const selectAuthError = (state) => state.auth.error;
 export const selectIsAdmin = (state) => state.auth.user?.role === 'admin';
-export const selectIsVendor = (state) => state.auth.user?.role === 'vendor';
+export const selectIsTailors = (state) => state.auth.user?.role === 'tailors';
 export const selectIsUser = (state) => state.auth.user?.role === 'user';
+export const selectIsClient = (state) => state.auth.user?.role === 'client';
 
 export default authSlice.reducer;

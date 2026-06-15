@@ -13,7 +13,7 @@ Welcome to the **FitCraft API Documentation**! This guide explains all the APIs 
 5. [Orders APIs](#-orders-apis)
 6. [Feedback APIs](#-feedback-apis)
 7. [Admin APIs](#-admin-apis)
-8. [Vendor APIs](#-vendor-apis)
+8. [Tailors APIs](#-tailors-apis)
 9. [Error Handling](#-error-handling)
 
 ---
@@ -51,7 +51,7 @@ These APIs handle user registration, login, and profile retrieval.
 
 **Endpoint:** `POST /auth/register`
 
-**What it does:** Creates a new user account (customer or vendor)
+**What it does:** Creates a new user account (customer or tailors)
 
 **Request Body:**
 ```json
@@ -59,9 +59,9 @@ These APIs handle user registration, login, and profile retrieval.
   "name": "John Doe",
   "email": "john@example.com",
   "password": "securePassword123",
-  "role": "user",           // "user" for customer, "vendor" for tailor
+  "role": "user",           // "user" for customer, "tailors" for tailor
   "phone": "9876543210",    // optional
-  "shopName": "John's Tailor Shop"  // required only if role is "vendor"
+  "shopName": "John's Tailor Shop"  // required only if role is "tailors"
 }
 ```
 
@@ -532,7 +532,7 @@ These APIs manage custom orders for tailored clothing.
       {
         "status": "confirmed",
         "timestamp": "2024-01-15T10:35:00Z",
-        "note": "Order confirmed by vendor"
+        "note": "Order confirmed by tailors"
       },
       {
         "status": "pattern",
@@ -552,13 +552,13 @@ These APIs manage custom orders for tailored clothing.
 
 ---
 
-### 4. Update Order Status (Vendor/Admin Only)
+### 4. Update Order Status (Tailors/Admin Only)
 
 **Endpoint:** `PUT /orders/:id/status`
 
-**What it does:** Updates the status of an order (Vendor tracks progress)
+**What it does:** Updates the status of an order (Tailors tracks progress)
 
-**Authentication:** ✅ Required (Vendor or Admin role)
+**Authentication:** ✅ Required (Tailors or Admin role)
 
 **URL Parameters:**
 - `id` (required): The order ID
@@ -572,7 +572,7 @@ These APIs manage custom orders for tailored clothing.
 ```
 
 **Valid Statuses:**
-- `"confirmed"` - Order confirmed by vendor
+- `"confirmed"` - Order confirmed by tailors
 - `"pattern"` - Pattern is being prepared
 - `"stitching"` - Garment is being stitched
 - `"qc"` - Quality check in progress
@@ -581,13 +581,13 @@ These APIs manage custom orders for tailored clothing.
 
 ---
 
-### 5. Accept/Reject Order (Vendor Only)
+### 5. Accept/Reject Order (Tailors Only)
 
 **Endpoint:** `PUT /orders/:id/accept`
 
-**What it does:** Vendor accepts or rejects an order
+**What it does:** Tailors accepts or rejects an order
 
-**Authentication:** ✅ Required (Vendor role)
+**Authentication:** ✅ Required (Tailors role)
 
 **Request Body:**
 ```json
@@ -598,13 +598,13 @@ These APIs manage custom orders for tailored clothing.
 
 ---
 
-### 6. Get Vendor's Orders
+### 6. Get Tailors's Orders
 
-**Endpoint:** `GET /orders/vendor`
+**Endpoint:** `GET /orders/tailors`
 
-**What it does:** Retrieves all orders assigned to the logged-in vendor
+**What it does:** Retrieves all orders assigned to the logged-in tailors
 
-**Authentication:** ✅ Required (Vendor role)
+**Authentication:** ✅ Required (Tailors role)
 
 **Response (Success):**
 ```json
@@ -723,7 +723,7 @@ These APIs provide admin dashboard and platform management features.
   "stats": {
     "totalUsers": 150,
     "totalOrders": 325,
-    "totalVendors": 12,
+    "totalTailors": 12,
     "revenueThisMonth": 125000,
     "averageOrderValue": 3500
   }
@@ -758,11 +758,11 @@ These APIs provide admin dashboard and platform management features.
 
 ---
 
-### 3. Get All Vendors
+### 3. Get All Tailors
 
-**Endpoint:** `GET /admin/vendors`
+**Endpoint:** `GET /admin/tailors`
 
-**What it does:** Retrieves a list of all vendors on the platform
+**What it does:** Retrieves a list of all tailors on the platform
 
 **Authentication:** ✅ Required (Admin role)
 
@@ -770,9 +770,9 @@ These APIs provide admin dashboard and platform management features.
 ```json
 {
   "success": true,
-  "vendors": [
+  "tailors": [
     {
-      "_id": "vendor_id_123",
+      "_id": "tailors_id_123",
       "shopName": "John's Tailor Shop",
       "userId": "user_id_456",
       "isVerified": true,
@@ -786,16 +786,16 @@ These APIs provide admin dashboard and platform management features.
 
 ---
 
-### 4. Verify Vendor
+### 4. Verify Tailors
 
-**Endpoint:** `PUT /admin/vendors/:vendorId/verify`
+**Endpoint:** `PUT /admin/tailors/:tailorsId/verify`
 
-**What it does:** Verifies or blocks a vendor account
+**What it does:** Verifies or blocks a tailors account
 
 **Authentication:** ✅ Required (Admin role)
 
 **URL Parameters:**
-- `vendorId` (required): The vendor ID
+- `tailorsId` (required): The tailors ID
 
 **Request Body:**
 ```json

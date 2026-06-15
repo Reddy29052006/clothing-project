@@ -14,7 +14,7 @@ const CartItem = ({ item, index }) => {
       <Link to={productUrl} className="cart-item__image">
         {item.primaryImage ? (
           <img
-            src={`http://localhost:5001${item.primaryImage}`}
+            src={`${import.meta.env.VITE_BASE_URL || 'http://localhost:5001'}${item.primaryImage}`}
             alt={item.productName}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />

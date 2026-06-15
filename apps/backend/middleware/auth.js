@@ -42,7 +42,8 @@ const authorize = (...roles) => {
   };
 };
 
-const verifyVendor = authorize('vendor', 'admin');
+const verifyTailors = authorize('tailors', 'admin');
 const verifyUser = authorize('user', 'admin');
+const verifyClient = authorize('client', 'admin');
 
-module.exports = { protect, authorize, verifyVendor, verifyUser };
+module.exports = { protect, authorize, verifyTailors, verifyUser, verifyClient };

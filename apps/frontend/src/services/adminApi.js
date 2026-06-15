@@ -1,9 +1,9 @@
 import { baseApi } from './baseApi';
 
 // ── Admin API ──────────────────────────────────────────────────────────────
-// Backend: GET /admin/stats, GET /admin/orders, GET /admin/vendors,
-//          PUT /admin/vendors/:vendorId/verify
-// Note: assignVendor (PUT /admin/orders/:id/assign) removed — no backend route exists.
+// Backend: GET /admin/stats, GET /admin/orders, GET /admin/tailors,
+//          PUT /admin/tailors/:tailorsId/verify
+// Note: assignTailors (PUT /admin/orders/:id/assign) removed — no backend route exists.
 
 export const adminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -20,20 +20,20 @@ export const adminApi = baseApi.injectEndpoints({
       providesTags: ['AdminOrders'],
     }),
 
-    // All registered vendors
-    getAdminVendors: builder.query({
-      query: () => '/admin/vendors',
-      providesTags: ['Vendors'],
+    // All registered tailors
+    getAdminTailors: builder.query({
+      query: () => '/admin/tailors',
+      providesTags: ['Tailors'],
     }),
 
-    // Verify or unverify a vendor account
-    verifyVendor: builder.mutation({
-      query: ({ vendorId, isVerified }) => ({
-        url: `/admin/vendors/${vendorId}/verify`,
+    // Verify or unverify a tailors account
+    verifyTailors: builder.mutation({
+      query: ({ tailorsId, isVerified }) => ({
+        url: `/admin/tailors/${tailorsId}/verify`,
         method: 'PUT',
         body: { isVerified },
       }),
-      invalidatesTags: ['Vendors'],
+      invalidatesTags: ['Tailors'],
     }),
 
   }),
@@ -43,6 +43,6 @@ export const adminApi = baseApi.injectEndpoints({
 export const {
   useGetAdminStatsQuery,
   useGetAdminOrdersQuery,
-  useGetAdminVendorsQuery,
-  useVerifyVendorMutation,
+  useGetAdminTailorsQuery,
+  useVerifyTailorsMutation,
 } = adminApi;

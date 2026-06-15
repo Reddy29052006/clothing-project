@@ -6,13 +6,13 @@ A deep dive into 20 real-world scenarios you might encounter while developing fo
 
 ## 📋 Table of Contents
 
-1. [Vendor creates product but it does not appear](#1-vendor-creates-product-but-it-does-not-appear)
+1. [Tailors creates product but it does not appear](#1-tailors-creates-product-but-it-does-not-appear)
 2. [Order status updates but customer sees old status](#2-order-status-updates-but-customer-sees-old-status)
 3. [Measurements saved but not attached to order](#3-measurements-saved-but-not-attached-to-order)
-4. [Vendor dashboard showing stale data](#4-vendor-dashboard-showing-stale-data)
+4. [Tailors dashboard showing stale data](#4-tailors-dashboard-showing-stale-data)
 5. [Image upload succeeds but image not visible](#5-image-upload-succeeds-but-image-not-visible)
 6. [Redux auth state lost after refresh](#6-redux-auth-state-lost-after-refresh)
-7. [Customer can access vendor page](#7-customer-can-access-vendor-page)
+7. [Customer can access tailors page](#7-customer-can-access-tailors-page)
 8. [Admin dashboard statistics incorrect](#8-admin-dashboard-statistics-incorrect)
 9. [Product update succeeds but UI shows old data](#9-product-update-succeeds-but-ui-shows-old-data)
 10. [JWT stored but API returns 401](#10-jwt-stored-but-api-returns-401)
@@ -29,9 +29,9 @@ A deep dive into 20 real-world scenarios you might encounter while developing fo
 
 ---
 
-### 1. Vendor creates product but it does not appear
+### 1. Tailors creates product but it does not appear
 
-- **Problem:** New products are not visible in the vendor collection after creation.
+- **Problem:** New products are not visible in the tailors collection after creation.
 - **Symptoms:** API returns 201 Success, but the product list remains unchanged until manual refresh.
 - **Root Cause:** RTK Query cache invalidation failure. The `createProduct` mutation is missing `invalidatesTags: ['Products']`.
 - **Solution:** Add the missing `invalidatesTags` to the mutation in `productsApi.js`.
@@ -42,9 +42,9 @@ A deep dive into 20 real-world scenarios you might encounter while developing fo
 ### 2. Order status updates but customer sees old status
 
 - **Problem:** Order status updates are not reflected in the customer dashboard.
-- **Symptoms:** Vendor changes status to "Shipped," but customer dashboard still says "Processing."
-- **Root Cause:** The customer's `getOrder` query tag is not being invalidated by the vendor's `updateOrderStatus` mutation.
-- **Solution:** Ensure both `vendorApi` and `ordersApi` use the same tag names (e.g., `'Order'`).
+- **Symptoms:** Tailors changes status to "Shipped," but customer dashboard still says "Processing."
+- **Root Cause:** The customer's `getOrder` query tag is not being invalidated by the tailors's `updateOrderStatus` mutation.
+- **Solution:** Ensure both `tailorsApi` and `ordersApi` use the same tag names (e.g., `'Order'`).
 - **Prevention:** Use a shared constant for RTK Query tags across different API slices.
 
 ---
@@ -59,9 +59,9 @@ A deep dive into 20 real-world scenarios you might encounter while developing fo
 
 ---
 
-### 4. Vendor dashboard showing stale data
+### 4. Tailors dashboard showing stale data
 
-- **Problem:** Vendor dashboard displays stale order data.
+- **Problem:** Tailors dashboard displays stale order data.
 - **Symptoms:** New orders don't show up without a refresh.
 - **Root Cause:** RTK Query `refetchOnMountOrArgChange` is disabled, and no tags are being invalidated.
 - **Solution:** Use tags or set `refetchOnMountOrArgChange: true` for dashboard queries.
@@ -89,12 +89,12 @@ A deep dive into 20 real-world scenarios you might encounter while developing fo
 
 ---
 
-### 7. Customer can access vendor page
+### 7. Customer can access tailors page
 
 - **Problem:** Improper role-based access.
-- **Symptoms:** Customer accounts can access URLs reserved for vendors or admins.
+- **Symptoms:** Customer accounts can access URLs reserved for tailors or admins.
 - **Root Cause:** `ProtectedRoute` missing role-check logic.
-- **Solution:** Add `roles={['vendor']}` to the route definition.
+- **Solution:** Add `roles={['tailors']}` to the route definition.
 - **Prevention:** Always use the `roles` prop in `ProtectedRoute` for restricted pages.
 
 ---

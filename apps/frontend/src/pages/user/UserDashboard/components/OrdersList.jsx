@@ -36,7 +36,7 @@ const OrdersList = ({ orders, submitted, onFeedback }) => {
               <Link to={trackUrl} className="my-order-image">
                 {primaryImage ? (
                   <img
-                    src={`http://localhost:5001${primaryImage}`}
+                    src={`${import.meta.env.VITE_BASE_URL || 'http://localhost:5001'}${primaryImage}`}
                     alt={order.productId?.name || 'Product'}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />

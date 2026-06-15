@@ -21,7 +21,7 @@ Welcome to the development guide for FitCraft. This page outlines our internal s
 
 ## 🚀 7.1.1 New Developer Onboarding Guide
 
-> **Note:** Your primary goal is to understand how our monorepo facilitates seamless communication between the tailors (vendors) and customers.
+> **Note:** Your primary goal is to understand how our monorepo facilitates seamless communication between the tailors (tailors) and customers.
 
 ### ✅ First Day Checklist
 
@@ -29,7 +29,7 @@ Welcome to the development guide for FitCraft. This page outlines our internal s
 - [ ] **Install dependencies from root:** `npm install`
 - [ ] **Setup Environment:** Run `node scripts/setup.js` to generate `.env` files.
 - [ ] **Database:** Ensure you have a local MongoDB or an Atlas URI ready.
-- [ ] **Verify:** Run `npm run dev` and log in with the test credentials in `seedData.js`.
+- [ ] **Verify:** Run `npm run dev` and create a test account to verify the setup.
 
 ### 🔍 Recommended Exploration Order
 

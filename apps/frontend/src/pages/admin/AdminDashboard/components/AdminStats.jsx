@@ -5,7 +5,7 @@ const AdminStats = ({ stats }) => {
     { label: 'Total Orders', value: stats.totalOrders, icon: Package, color: 'var(--color-primary)' },
     { label: 'Active Orders', value: stats.pendingOrders, icon: Scissors, color: 'var(--color-warning)' },
     { label: 'Total Users', value: stats.totalUsers, icon: Users, color: 'var(--color-info)' },
-    { label: 'Vendors', value: stats.totalVendors, icon: Scissors, color: 'var(--color-gold-muted)' },
+    { label: 'Tailors', value: stats.totalTailors, icon: Scissors, color: 'var(--color-gold-muted)' },
     { label: 'Delivered', value: stats.deliveredOrders, icon: CheckCircle, color: 'var(--color-success)' },
     { label: 'Revenue', value: `₹${(stats.totalRevenue || 0).toLocaleString('en-IN')}`, icon: IndianRupee, color: 'var(--color-gold-muted)' },
   ];

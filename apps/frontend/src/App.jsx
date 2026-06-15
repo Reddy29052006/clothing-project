@@ -2,14 +2,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
-import vendorRoutes from './routes/vendorRoutes';
+import tailorsRoutes from './routes/tailorsRoutes';
+import clientRoutes from './routes/clientRoutes';
 import adminRoutes from './routes/adminRoutes';
 
 //  Router 
 const router = createBrowserRouter([
   ...authRoutes,
   ...userRoutes,
-  ...vendorRoutes,
+  ...tailorsRoutes,
+  ...clientRoutes,
   ...adminRoutes,
 ]);
 

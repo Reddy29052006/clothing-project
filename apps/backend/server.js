@@ -12,7 +12,8 @@ const productRoutes = require('./routes/user/products');
 const orderRoutes = require('./routes/user/orders');
 const feedbackRoutes = require('./routes/user/feedback');
 const adminRoutes = require('./routes/admin/admin');
-const vendorRoutes = require('./routes/vendor/vendor');
+const tailorsRoutes = require('./routes/tailors/tailors');
+const customOrderRoutes = require('./routes/user/customOrders');
 const path = require('path');
 
 // Connect to database
@@ -27,9 +28,14 @@ app.use(
       if (!origin)
         return callback(null, true);
 
-      // only CLIENT_URL can access
-      if (origin === process.env.CLIENT_URL)
+      // Allow CLIENT_URL, localhost, or any ngrok tunnel domain
+      if (
+        origin === process.env.CLIENT_URL ||
+        origin.includes('localhost') ||
+        origin.includes('ngrok-free.dev')
+      ) {
         return callback(null, true);
+      }
       callback(new Error('Not allowed by CORS'));
     },
   })
@@ -60,7 +66,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/feedback', feedbackRoutes);
 app.use('/api/admin', adminRoutes);
-app.use('/api/vendor', vendorRoutes);
+app.use('/api/tailors', tailorsRoutes);
+app.use('/api/custom-orders', customOrderRoutes);
 
 //  404 Handler 
 app.use('*', (req, res) => {
@@ -71,8 +78,34 @@ app.use('*', (req, res) => {
 app.use(errorHandler);
 
 //  Start Server 
-const PORT = process.env.PORT;
+const http = require('http');
+const { Server } = require('socket.io');
 
-app.listen(PORT, () => {
-  console.log(`\n🚀 FitCraft Server running on http://localhost:${PORT}`);
+const PORT = process.env.PORT || 5001;
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    methods: ["GET", "POST", "PUT"]
+  }
 });
+
+// Attach socket.io server instance to app settings so controllers can access it
+app.set('io', io);
+
+io.on('connection', (socket) => {
+  console.log(`🔌 Client connected: ${socket.id}`);
+  
+  socket.on('join_room', (room) => {
+    socket.join(room);
+    console.log(`👤 Client ${socket.id} joined room: ${room}`);
+  });
+
+  socket.on('disconnect', () => {
+    console.log(`🔌 Client disconnected: ${socket.id}`);
+  });
+});
+
+server.listen(PORT, () => {
+  console.log(`\n🚀 FitCraft Server running on http://localhost:${PORT}`);
+}); // Force nodemon automatic restart

@@ -13,15 +13,27 @@ import MyOrders from '../pages/user/MyOrders/MyOrders';
 const userRoutes = [
   {
     path: '/products',
-    element: <Layout><Products /></Layout>,
+    element: (
+      <ProtectedRoute>
+        <Layout><Products /></Layout>
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/products/:id',
-    element: <Layout><ProductCustomization /></Layout>,
+    element: (
+      <ProtectedRoute>
+        <Layout><ProductCustomization /></Layout>
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/measure',
-    element: <FullScreen><MeasurementFlow /></FullScreen>,
+    element: (
+      <ProtectedRoute roles={['user']}>
+        <FullScreen><MeasurementFlow /></FullScreen>
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/cart',

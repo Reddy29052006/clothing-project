@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLoginMutation } from '../../../../services/authApi';
 import { setCredentials } from '../../../../store/slices/authSlice';
-import { AlertTriangle, User, Scissors, Shield } from 'lucide-react';
+import { AlertTriangle, User, Scissors, Shield, Briefcase } from 'lucide-react';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,8 @@ const LoginForm = () => {
       const data = await login(form).unwrap();
       dispatch(setCredentials({ user: data.user, token: data.token }));
       if (data.user.role === 'admin') navigate('/admin');
-      else if (data.user.role === 'vendor') navigate('/vendor');
+      else if (data.user.role === 'tailors') navigate('/tailors');
+      else if (data.user.role === 'client') navigate('/custom-orders');
       else navigate(redirect);
     } catch (err) {
       setError(err?.data?.message || 'Login failed. Check your credentials.');
@@ -80,10 +81,11 @@ const LoginForm = () => {
 
         <div className="auth-demo-accounts">
           <p className="auth-demo-label">Demo accounts — click to fill:</p>
-          <div className="auth-demo-grid">
+          <div className="auth-demo-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
             <button type="button" className="auth-demo-btn" onClick={() => fillDemo('user@fitcraft.com', 'user1234')}><User size={14} /> Customer</button>
-            <button type="button" className="auth-demo-btn" onClick={() => fillDemo('vendor@fitcraft.com', 'vendor123')}><Scissors size={14} /> Vendor</button>
-            <button type="button" className="auth-demo-btn" onClick={() => fillDemo('admin@fitcraft.com', 'admin123')}><Shield size={14} /> Admin</button>
+            <button type="button" className="auth-demo-btn" onClick={() => fillDemo('client@fitcraft.com', 'user1234')}><Briefcase size={14} /> Client</button>
+            <button type="button" className="auth-demo-btn" onClick={() => fillDemo('tailors@fitcraft.com', 'tailors123')}><Scissors size={14} /> Tailors</button>
+            <button type="button" className="auth-demo-btn" onClick={() => fillDemo('admin@fitcraft.com', 'Admin@123')}><Shield size={14} /> Admin</button>
           </div>
         </div>
 

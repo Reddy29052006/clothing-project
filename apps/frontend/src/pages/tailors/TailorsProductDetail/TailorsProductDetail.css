@@ -1,0 +1,216 @@
+.tailors-detail-page {
+  min-height: 100vh;
+  padding-top: calc(var(--nav-height) + var(--space-8));
+  padding-bottom: var(--space-16);
+}
+
+.tailors-detail-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.tailors-detail-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.tailors-detail-category {
+  font-size: var(--text-sm);
+  color: var(--color-gold-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: var(--weight-semi);
+}
+
+.tailors-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--space-8);
+}
+
+.tailors-detail-image-box {
+  background: var(--color-surface-2);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border-light);
+  aspect-ratio: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tailors-detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tailors-detail-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.tailors-detail-section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+}
+
+.tailors-detail-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border-light);
+  padding-bottom: var(--space-2);
+}
+
+.tailors-data-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.tailors-data-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.tailors-data-label {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.tailors-data-value {
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+  font-size: var(--text-md);
+}
+
+.tailors-fabric-list, .tailors-color-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.tailors-fabric-item {
+  background: var(--color-surface-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.tailors-color-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--color-surface-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  border: 1px solid var(--color-border);
+}
+
+.tailors-color-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.tailors-detail-reviews {
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.tailors-reviews-header {
+  margin-bottom: var(--space-6);
+}
+
+.tailors-reviews-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.tailors-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--space-6);
+}
+
+.tailors-review-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+}
+
+.tailors-review-card__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.tailors-review-card__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-surface-2);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--weight-bold);
+  font-size: var(--text-lg);
+  border: 1px solid var(--color-border);
+}
+
+.tailors-review-card__name {
+  font-weight: var(--weight-semi);
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  margin-bottom: 2px;
+}
+
+.tailors-review-card__date {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.tailors-review-card__comment {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.tailors-reviews-empty {
+  text-align: center;
+  padding: var(--space-12) 0;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 900px) {
+  .tailors-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tailors-detail-image-box {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}

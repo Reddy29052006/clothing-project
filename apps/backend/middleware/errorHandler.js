@@ -36,6 +36,11 @@ const errorHandler = (err, req, res, next) => {
     message = 'Token expired';
     statusCode = 401;
   }
+
+  res.status(statusCode).json({
+    success: false,
+    message
+  });
 };
 
 module.exports = errorHandler;

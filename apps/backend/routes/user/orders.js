@@ -7,16 +7,16 @@ const {
   getOrder,
   updateOrderStatus,
   acceptOrder,
-  getVendorOrders,
+  getTailorsOrders,
 } = require('../../controllers/user/orderController');
 
 router.use(protect);
 
 router.post('/', authorize('user'), createOrder);
 router.get('/my', authorize('user'), getMyOrders);
-router.get('/vendor', authorize('vendor'), getVendorOrders);
+router.get('/tailors', authorize('tailors'), getTailorsOrders);
 router.get('/:id', getOrder);
-router.put('/:id/status', authorize('vendor', 'admin'), updateOrderStatus);
-router.put('/:id/accept', authorize('vendor'), acceptOrder);
+router.put('/:id/status', authorize('tailors', 'admin'), updateOrderStatus);
+router.put('/:id/accept', authorize('tailors'), acceptOrder);
 
 module.exports = router;

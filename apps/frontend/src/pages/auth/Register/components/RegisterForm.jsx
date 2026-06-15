@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useRegisterMutation } from '../../../../services/authApi';
 import { setCredentials } from '../../../../store/slices/authSlice';
-import { AlertTriangle, User, Scissors } from 'lucide-react';
+import { AlertTriangle, User, Scissors, Briefcase } from 'lucide-react';
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -17,6 +17,11 @@ const RegisterForm = () => {
   const [errors, setErrors] = useState({});
   const [apiError, setApiError] = useState('');
 
+  const roleRef = useRef(form.role);
+  useEffect(() => {
+    roleRef.current = form.role;
+  }, [form.role]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors((p) => ({ ...p, [e.target.name]: '' }));
@@ -29,7 +34,7 @@ const RegisterForm = () => {
     if (!form.email) errs.email = 'Email is required';
     if (!form.password || form.password.length < 6) errs.password = 'Password must be at least 6 characters';
     if (form.password !== form.confirmPassword) errs.confirmPassword = 'Passwords do not match';
-    if (form.role === 'vendor' && !form.shopName.trim()) errs.shopName = 'Shop name is required for vendors';
+    if (form.role === 'tailors' && !form.shopName.trim()) errs.shopName = 'Shop name is required for tailors';
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
@@ -39,10 +44,11 @@ const RegisterForm = () => {
     if (!validate()) return;
     try {
       const payload = { name: form.name, email: form.email, password: form.password, role: form.role, phone: form.phone };
-      if (form.role === 'vendor') payload.shopName = form.shopName;
+      if (form.role === 'tailors') payload.shopName = form.shopName;
       const data = await register(payload).unwrap();
       dispatch(setCredentials({ user: data.user, token: data.token }));
-      if (data.user.role === 'vendor') navigate('/vendor');
+      if (data.user.role === 'tailors') navigate('/tailors');
+      else if (data.user.role === 'client') navigate('/custom-orders');
       else navigate('/measure');
     } catch (err) {
       setApiError(err?.data?.message || 'Registration failed. Please try again.');
@@ -59,9 +65,10 @@ const RegisterForm = () => {
         </div>
 
         {/* Role Selector */}
-        <div className="auth-role-selector">
+        <div className="auth-role-selector" style={{ gridTemplateColumns: 'repeat(3, 1fr)' }}>
           <button type="button" className={`auth-role-btn ${form.role === 'user' ? 'active' : ''}`} onClick={() => setForm({ ...form, role: 'user' })}><User size={14} /> Customer</button>
-          <button type="button" className={`auth-role-btn ${form.role === 'vendor' ? 'active' : ''}`} onClick={() => setForm({ ...form, role: 'vendor' })}><Scissors size={14} /> Vendor / Tailor</button>
+          <button type="button" className={`auth-role-btn ${form.role === 'client' ? 'active' : ''}`} onClick={() => setForm({ ...form, role: 'client' })}><Briefcase size={14} /> Client</button>
+          <button type="button" className={`auth-role-btn ${form.role === 'tailors' ? 'active' : ''}`} onClick={() => setForm({ ...form, role: 'tailors' })}><Scissors size={14} /> Tailors</button>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form" noValidate>
@@ -84,7 +91,7 @@ const RegisterForm = () => {
             <input id="reg-phone" name="phone" type="tel" className="form-input" placeholder="+91 9876543210" value={form.phone} onChange={handleChange} />
           </div>
 
-          {form.role === 'vendor' && (
+          {form.role === 'tailors' && (
             <div className="form-group">
               <label htmlFor="reg-shop" className="form-label">Shop Name <span className="required">*</span></label>
               <input id="reg-shop" name="shopName" type="text" className={`form-input ${errors.shopName ? 'error' : ''}`} placeholder="Arjun Master Tailors" value={form.shopName} onChange={handleChange} />

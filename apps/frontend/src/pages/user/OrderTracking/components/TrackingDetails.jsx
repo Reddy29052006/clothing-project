@@ -9,7 +9,7 @@ const TrackingDetails = ({ order }) => (
         <Link to={order.productId?._id ? `/products/${order.productId._id}` : '#'} className="tracking-product__image">
           {order.productId?.primaryImage ? (
             <img
-              src={`http://localhost:5001${order.productId.primaryImage}`}
+              src={`${import.meta.env.VITE_BASE_URL || 'http://localhost:5001'}${order.productId.primaryImage}`}
               alt={order.productId?.name || 'Product'}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />

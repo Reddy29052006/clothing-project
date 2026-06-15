@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../../models/User');
-const Vendor = require('../../models/Vendor');
+const Tailors = require('../../models/Tailors');
 
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET, {
@@ -24,13 +24,13 @@ const register = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Email already registered' });
     }
 
-    const allowedRole = ['user', 'vendor'].includes(role) ? role : 'user';
+    const allowedRole = ['user', 'tailors', 'client'].includes(role) ? role : 'user';
 
     const user = await User.create({ name, email, password, role: allowedRole, phone });
 
-    // If vendor, create vendor profile
-    if (allowedRole === 'vendor') {
-      await Vendor.create({
+    // If tailors, create tailors profile
+    if (allowedRole === 'tailors') {
+      await Tailors.create({
         userId: user._id,
         shopName: shopName || `${name}'s Tailor Shop`,
         phone: phone || '',

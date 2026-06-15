@@ -27,9 +27,9 @@ export const baseApi = createApi({
     'Feedback',
     'AdminStats',
     'AdminOrders',
-    'Vendors',
-    'VendorProducts',
-    'VendorOrders',
+    'Tailors',
+    'TailorsProducts',
+    'TailorsOrders',
   ],
   endpoints: () => ({}),
 });

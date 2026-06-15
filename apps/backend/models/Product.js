@@ -37,7 +37,7 @@ const productSchema = new mongoose.Schema(
     },
     images: [{ type: String }],
     primaryImage: { type: String },
-    vendorId: {
+    tailorsId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       default: null
