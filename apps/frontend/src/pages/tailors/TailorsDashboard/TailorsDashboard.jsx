@@ -92,7 +92,6 @@ const TailorsDashboard = () => {
                   <div>
                     <h3 className="tailors-order__id">Order #{order.orderId}</h3>
                     <p className="tailors-order__product">{order.productId?.name || 'Custom Garment'}</p>
-                    <p className="tailors-order__customer">Customer: {order.userId?.name} · {order.userId?.email}</p>
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '0.5rem' }}>
                     <span className={`badge badge--${STATUS_BADGE[order.status] || 'neutral'}`}>

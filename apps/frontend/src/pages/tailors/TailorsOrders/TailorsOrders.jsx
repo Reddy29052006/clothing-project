@@ -88,9 +88,6 @@ const TailorsOrders = () => {
                   <span className="badge badge--gold">Fit: {order.fitPreference}</span>
                 </div>
 
-                <div style={{ fontSize: 'var(--text-sm)', color: 'var(--color-text-muted)', marginBottom: '1rem' }}>
-                  <strong>Customer:</strong> {order.userId?.name} ({order.userId?.email})
-                </div>
 
                 <div className="order-card__footer">
                   <div className="order-card__price">&#8377;{order.totalPrice}</div>

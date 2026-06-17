@@ -3,6 +3,43 @@ const Product = require('../../models/Product');
 const Tailors = require('../../models/Tailors');
 const Measurement = require('../../models/Measurement');
 
+// Helper to sanitize order details for privacy (non-admin users)
+const sanitizeOrder = (order, user) => {
+  if (!order) return order;
+  const orderObj = order.toObject ? order.toObject() : order;
+  const isOwner = orderObj.userId && (orderObj.userId._id || orderObj.userId).toString() === user._id.toString();
+  const isAdmin = user.role === 'admin';
+
+  if (!isOwner && !isAdmin) {
+    if (orderObj.userId && typeof orderObj.userId === 'object') {
+      delete orderObj.userId.name;
+      delete orderObj.userId.email;
+      delete orderObj.userId.phone;
+    }
+    if (orderObj.deliveryAddress) {
+      delete orderObj.deliveryAddress.street;
+    }
+  }
+
+  const isAssignedTailor = orderObj.tailorsId && (orderObj.tailorsId._id || orderObj.tailorsId).toString() === user._id.toString();
+  if (!isOwner && !isAssignedTailor && !isAdmin) {
+    if (orderObj.tailorsId && typeof orderObj.tailorsId === 'object') {
+      delete orderObj.tailorsId.name;
+      delete orderObj.tailorsId.email;
+      delete orderObj.tailorsId.phone;
+    }
+  }
+  return orderObj;
+};
+
+const sanitizeOrders = (orders, user) => {
+  if (!orders) return orders;
+  if (Array.isArray(orders)) {
+    return orders.map(order => sanitizeOrder(order, user));
+  }
+  return sanitizeOrder(orders, user);
+};
+
 // @desc    Create order
 // @route   POST /api/orders
 // @access  Private (user)
@@ -53,7 +90,7 @@ const createOrder = async (req, res, next) => {
 
     const populated = await Order.findById(order._id).populate('productId', 'name category images primaryImage');
 
-    res.status(201).json({ success: true, order: populated });
+    res.status(201).json({ success: true, order: sanitizeOrder(populated, req.user) });
   } catch (error) {
     next(error);
   }
@@ -68,7 +105,7 @@ const getMyOrders = async (req, res, next) => {
       .populate('productId', 'name category images primaryImage basePrice')
       .sort({ createdAt: -1 });
 
-    res.json({ success: true, orders });
+    res.json({ success: true, orders: sanitizeOrders(orders, req.user) });
   } catch (error) {
     next(error);
   }
@@ -95,7 +132,7 @@ const getOrder = async (req, res, next) => {
       return res.status(403).json({ success: false, message: 'Not authorized' });
     }
 
-    res.json({ success: true, order });
+    res.json({ success: true, order: sanitizeOrder(order, req.user) });
   } catch (error) {
     next(error);
   }
@@ -128,7 +165,7 @@ const updateOrderStatus = async (req, res, next) => {
     }
 
     await order.save();
-    res.json({ success: true, order });
+    res.json({ success: true, order: sanitizeOrder(order, req.user) });
   } catch (error) {
     next(error);
   }
@@ -152,7 +189,7 @@ const acceptOrder = async (req, res, next) => {
     }
 
     await order.save();
-    res.json({ success: true, order });
+    res.json({ success: true, order: sanitizeOrder(order, req.user) });
   } catch (error) {
     next(error);
   }
@@ -168,7 +205,7 @@ const getTailorsOrders = async (req, res, next) => {
       .populate('userId', 'name email phone')
       .sort({ createdAt: -1 });
 
-    res.json({ success: true, orders });
+    res.json({ success: true, orders: sanitizeOrders(orders, req.user) });
   } catch (error) {
     next(error);
   }

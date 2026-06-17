@@ -130,12 +130,10 @@ const TailorOrders = () => {
                 </div>
 
                 <div className="tailor-order-body">
-                  {/* Client Details Section */}
+                  {/* Order Reference Details */}
                   <div className="info-block-wrapper client-info-details">
-                    <h3 className="section-title-tag"><User size={14} /> Client Details</h3>
-                    <p><strong>Name:</strong> {order.clientDetails?.name}</p>
-                    <p><strong>Phone:</strong> {order.clientDetails?.phone}</p>
-                    {order.clientDetails?.address && <p><strong>Delivery Address:</strong> {order.clientDetails.address}</p>}
+                    <h3 className="section-title-tag"><User size={14} /> Order Reference</h3>
+                    <p><strong>Shipping Ref:</strong> {order.orderId}</p>
                     {order.clientDetails?.notes && <p className="text-muted"><em>Notes: {order.clientDetails.notes}</em></p>}
                   </div>
 

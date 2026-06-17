@@ -2,6 +2,45 @@ const CustomOrder = require('../../models/CustomOrder');
 const User = require('../../models/User');
 const Tailors = require('../../models/Tailors');
 
+// Helper to sanitize custom order details for privacy (non-admin users)
+const sanitizeCustomOrder = (order, user) => {
+  if (!order) return order;
+  const orderObj = order.toObject ? order.toObject() : order;
+  const isOwner = orderObj.clientId && (orderObj.clientId._id || orderObj.clientId).toString() === user._id.toString();
+  const isAdmin = user.role === 'admin';
+
+  if (!isOwner && !isAdmin) {
+    if (orderObj.clientDetails) {
+      delete orderObj.clientDetails.name;
+      delete orderObj.clientDetails.phone;
+      delete orderObj.clientDetails.address;
+    }
+    if (orderObj.clientId && typeof orderObj.clientId === 'object') {
+      delete orderObj.clientId.name;
+      delete orderObj.clientId.email;
+      delete orderObj.clientId.phone;
+    }
+  }
+
+  const isAssignedTailor = orderObj.tailorId && (orderObj.tailorId._id || orderObj.tailorId).toString() === user._id.toString();
+  if (!isOwner && !isAssignedTailor && !isAdmin) {
+    if (orderObj.tailorId && typeof orderObj.tailorId === 'object') {
+      delete orderObj.tailorId.name;
+      delete orderObj.tailorId.email;
+      delete orderObj.tailorId.phone;
+    }
+  }
+  return orderObj;
+};
+
+const sanitizeCustomOrders = (orders, user) => {
+  if (!orders) return orders;
+  if (Array.isArray(orders)) {
+    return orders.map(order => sanitizeCustomOrder(order, user));
+  }
+  return sanitizeCustomOrder(orders, user);
+};
+
 // @desc    Create a custom tailoring order
 // @route   POST /api/custom-orders
 // @access  Private (Client)
@@ -65,18 +104,17 @@ const createCustomOrder = async (req, res, next) => {
       status: initialStatus
     });
 
-    // Notify tailors via WebSocket
+    // Notify tailors via WebSocket (removed client name to preserve privacy)
     const io = req.app.get('io');
     if (io) {
       io.emit('newCustomOrder', {
         orderId: customOrder.orderId,
         _id: customOrder._id,
-        clientName: clientDetails.name,
         products: products.map(p => `${p.totalQuantity}x ${p.productType}`).join(', '),
       });
     }
 
-    res.status(201).json({ success: true, order: customOrder });
+    res.status(201).json({ success: true, order: sanitizeCustomOrder(customOrder, req.user) });
   } catch (error) {
     next(error);
   }
@@ -100,7 +138,7 @@ const getClientCustomOrders = async (req, res, next) => {
       return orderObj;
     }));
 
-    res.json({ success: true, orders: enhancedOrders });
+    res.json({ success: true, orders: sanitizeCustomOrders(enhancedOrders, req.user) });
   } catch (error) {
     next(error);
   }
@@ -114,7 +152,7 @@ const getOpenCustomOrders = async (req, res, next) => {
     const orders = await CustomOrder.find({ tailorId: null, status: { $in: ['Created', 'Assigned'] } })
       .populate('clientId', 'name email phone')
       .sort({ createdAt: -1 });
-    res.json({ success: true, orders });
+    res.json({ success: true, orders: sanitizeCustomOrders(orders, req.user) });
   } catch (error) {
     next(error);
   }
@@ -129,7 +167,7 @@ const getTailorCustomOrders = async (req, res, next) => {
       .populate('clientId', 'name email phone')
       .sort({ createdAt: -1 });
 
-    res.json({ success: true, orders });
+    res.json({ success: true, orders: sanitizeCustomOrders(orders, req.user) });
   } catch (error) {
     next(error);
   }
@@ -167,7 +205,7 @@ const acceptCustomOrder = async (req, res, next) => {
 
     await order.save();
 
-    res.json({ success: true, order });
+    res.json({ success: true, order: sanitizeCustomOrder(order, req.user) });
   } catch (error) {
     next(error);
   }
@@ -211,7 +249,7 @@ const updateCustomOrderStatus = async (req, res, next) => {
 
     await order.save();
 
-    res.json({ success: true, order });
+    res.json({ success: true, order: sanitizeCustomOrder(order, req.user) });
   } catch (error) {
     next(error);
   }
