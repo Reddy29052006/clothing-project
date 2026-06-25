@@ -338,7 +338,8 @@ async function main() {
   console.log(`${colors.brightGreen}================================================================${colors.reset}\n`);
   
   console.log(`${colors.bold}To start the local development servers:${colors.reset}`);
-  console.log(`  ${symbols.arrow} ${colors.brightCyan}npm run dev${colors.reset} (starts local dev servers)\n`);
+  console.log(`  ${symbols.arrow} ${colors.brightCyan}npm run dev${colors.reset} (starts local dev servers)`);
+  console.log(`  ${symbols.arrow} ${colors.brightCyan}docker-compose up --build${colors.reset} (starts production containers)\n`);
 }
 
 main();

@@ -14,7 +14,7 @@ const OpenOrders = () => {
 
   // Socket.io Real-time connection setup
   useEffect(() => {
-    const socket = io(import.meta.env.VITE_BASE_URL || 'http://localhost:5001', {
+    const socket = io(import.meta.env.VITE_BASE_URL, {
       transports: ['websocket', 'polling']
     });
 
@@ -32,7 +32,7 @@ const OpenOrders = () => {
           message: `New Order placed by ${newOrder.clientName || 'Client'}: ${newOrder.products}`
         }
       ]);
-      
+
       // Auto-clear notification after 8 seconds
       setTimeout(() => {
         setNotifications((prev) => prev.filter(n => n.id !== notificationId));
@@ -144,7 +144,7 @@ const OpenOrders = () => {
                             <span className="product-type-label">{prod.productType}</span>
                             <span className="product-qty-label">Total Qty: {prod.totalQuantity}</span>
                           </div>
-                          
+
                           <div className="size-groups-summary">
                             {prod.sizeGroups?.map((sg, sgIdx) => (
                               <div key={sgIdx} className="size-group-summary-card">

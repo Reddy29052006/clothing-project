@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useGetProductByIdQuery } from '../../../services/productsApi';
 import { ArrowLeft, Pencil, Shirt, Star } from 'lucide-react';
+import { getImageUrl } from '../../../utils/imageHelper';
 import './TailorsProductDetail.css';
 
 const StarRating = ({ rating }) => (
@@ -51,7 +52,7 @@ const TailorsProductDetail = () => {
       <div className="tailors-detail-grid">
         <div className="tailors-detail-image-box">
           {product.primaryImage ? (
-            <img src={`${import.meta.env.VITE_BASE_URL}${product.primaryImage}`} alt={product.name} className="tailors-detail-image" />
+            <img src={getImageUrl(product.primaryImage)} alt={product.name} className="tailors-detail-image" />
           ) : (
             <Shirt size={80} color="var(--color-border)" />
           )}

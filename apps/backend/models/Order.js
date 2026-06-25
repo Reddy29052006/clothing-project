@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const orderStatusHistorySchema = new mongoose.Schema({
   status: {
     type: String,
-    enum: ['confirmed', 'pattern', 'stitching', 'qc', 'shipped', 'delivered'],
+    enum: ['pending_payment', 'confirmed', 'pattern', 'stitching', 'qc', 'shipped', 'delivered'],
   },
   timestamp: { type: Date, default: Date.now },
   note: { type: String },
@@ -54,10 +54,19 @@ const orderSchema = new mongoose.Schema(
     // Status
     status: {
       type: String,
-      enum: ['confirmed', 'pattern', 'stitching', 'qc', 'shipped', 'delivered'],
-      default: 'confirmed',
+      enum: ['pending_payment', 'confirmed', 'pattern', 'stitching', 'qc', 'shipped', 'delivered'],
+      default: 'pending_payment',
     },
     statusHistory: [orderStatusHistorySchema],
+    paymentStatus: {
+      type: String,
+      enum: ['unpaid', 'paid', 'failed'],
+      default: 'unpaid',
+    },
+    stripeSessionId: {
+      type: String,
+      default: null,
+    },
     // Tailors
     tailorsAccepted: { type: Boolean, default: null },
     estimatedDelivery: { type: Date },

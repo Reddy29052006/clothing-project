@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Shirt } from 'lucide-react';
+import { getImageUrl } from '../../../utils/imageHelper';
 import { useGetProductByIdQuery } from '../../../services/productsApi';
 import { useUpdateProductMutation } from '../../../services/tailorsApi';
 
@@ -53,7 +54,7 @@ const EditProduct = () => {
       <div className="card" style={{ marginBottom: '2rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
         <div style={{ width: '80px', height: '80px', background: 'var(--color-surface-2)', borderRadius: 'var(--radius-sm)' }}>
           {product.primaryImage ? (
-            <img src={`${import.meta.env.VITE_BASE_URL}${product.primaryImage}`} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
+            <img src={getImageUrl(product.primaryImage)} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }} />
           ) : (
             <div style={{ display: 'flex', height: '100%', alignItems: 'center', justifyContent: 'center' }}>
               <Shirt size={32} color="var(--color-gold-muted)" />

@@ -1,6 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
@@ -14,12 +16,24 @@ const feedbackRoutes = require('./routes/user/feedback');
 const adminRoutes = require('./routes/admin/admin');
 const tailorsRoutes = require('./routes/tailors/tailors');
 const customOrderRoutes = require('./routes/user/customOrders');
+const paymentRoutes = require('./routes/user/payments');
 const path = require('path');
 
 // Connect to database
-connectDB();
+if (process.env.NODE_ENV !== 'test') {
+  connectDB();
+}
 
 const app = express();
+
+// Security and Performance Hardening
+app.use(helmet());
+app.use(compression());
+
+// Validate production secrets
+if (process.env.NODE_ENV === 'production' && (!process.env.JWT_SECRET || process.env.JWT_SECRET === 'fitcraft_jwt')) {
+  console.warn('⚠️ WARNING: JWT_SECRET is unset or using a default insecure value in production mode!');
+}
 
 //  Middleware 
 app.use(
@@ -68,6 +82,7 @@ app.use('/api/feedback', feedbackRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/tailors', tailorsRoutes);
 app.use('/api/custom-orders', customOrderRoutes);
+app.use('/api/payments', paymentRoutes);
 
 //  404 Handler 
 app.use('*', (req, res) => {
@@ -106,6 +121,10 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`\n🚀 FitCraft Server running on http://localhost:${PORT}`);
-}); // Force nodemon automatic restart
+if (process.env.NODE_ENV !== 'test') {
+  server.listen(PORT, () => {
+    console.log(`\n🚀 FitCraft Server running on http://localhost:${PORT}`);
+  }); // Force nodemon automatic restart
+}
+
+module.exports = { app, server };

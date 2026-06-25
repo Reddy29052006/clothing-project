@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Package, Shirt, Check, ArrowRight } from 'lucide-react';
+import { getImageUrl } from '../../../../utils/imageHelper';
 
 const STATUS_LABELS = {
   confirmed: { label: 'Confirmed', badge: 'neutral' },
@@ -36,7 +37,7 @@ const OrdersList = ({ orders, submitted, onFeedback }) => {
               <Link to={trackUrl} className="my-order-image">
                 {primaryImage ? (
                   <img
-                    src={`${import.meta.env.VITE_BASE_URL || 'http://localhost:5001'}${primaryImage}`}
+                    src={getImageUrl(primaryImage)}
                     alt={order.productId?.name || 'Product'}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />

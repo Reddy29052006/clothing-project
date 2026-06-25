@@ -8,7 +8,8 @@
     "build": "npm run build --workspace=backend && npm run build --workspace=frontend",
     "dev": "node scripts/setup.js && concurrently --names \"backend,frontend,ngrok\" --prefix-colors \"green,cyan,magenta\" \"npm run dev --workspace=backend\" \"npm run dev --workspace=frontend\" \"node scripts/ngrok.js\"",
     "lint": "npm run lint --workspace=frontend",
-    "postinstall": "node scripts/setup.js"
+    "postinstall": "node scripts/setup.js",
+    "test": "npm run test --workspace=backend"
   },
   "devDependencies": {
     "concurrently": "^9.0.1"

@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Shirt, Check } from 'lucide-react';
 import { removeItem } from '../../../../store/slices/cartSlice';
+import { getImageUrl } from '../../../../utils/imageHelper';
 
 const CartItem = ({ item, index }) => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const CartItem = ({ item, index }) => {
       <Link to={productUrl} className="cart-item__image">
         {item.primaryImage ? (
           <img
-            src={`${import.meta.env.VITE_BASE_URL || 'http://localhost:5001'}${item.primaryImage}`}
+            src={getImageUrl(item.primaryImage)}
             alt={item.productName}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />

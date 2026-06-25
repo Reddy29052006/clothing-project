@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Shirt, ArrowRight } from 'lucide-react';
+import { getImageUrl } from '../../../../utils/imageHelper';
 
 const StarRating = ({ rating }) => (
   <div className="stars">
@@ -13,7 +14,7 @@ const ProductCard = ({ product }) => (
   <Link to={`/products/${product._id}`} className="product-card-full">
     <div className="product-card-full__image" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative' }}>
       {product.primaryImage ? (
-        <img src={`${import.meta.env.VITE_BASE_URL}${product.primaryImage}`} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        <img src={getImageUrl(product.primaryImage)} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       ) : (
         <Shirt size={64} color="var(--color-gold-muted)" />
       )}

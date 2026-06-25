@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Shirt } from 'lucide-react';
+import { getImageUrl } from '../../../../utils/imageHelper';
 
 const ImageGallery = ({ product, color }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -14,7 +15,7 @@ const ImageGallery = ({ product, color }) => {
       >
         {product.images && product.images.length > 0 ? (
           <img
-            src={`${import.meta.env.VITE_BASE_URL}${product.images[currentImageIndex]}`}
+            src={getImageUrl(product.images[currentImageIndex])}
             alt={product.name}
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
@@ -42,7 +43,7 @@ const ImageGallery = ({ product, color }) => {
                 flexShrink: 0, padding: 0, background: 'none', cursor: 'pointer',
               }}
             >
-              <img src={`${import.meta.env.VITE_BASE_URL}${img}`} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={getImageUrl(img)} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </button>
           ))}
         </div>

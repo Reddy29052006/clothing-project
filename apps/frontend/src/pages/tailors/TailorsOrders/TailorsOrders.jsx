@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Shirt, Ruler } from 'lucide-react';
+import { getImageUrl } from '../../../utils/imageHelper';
 import {
   useGetTailorsOrdersQuery,
   useUpdateTailorsOrderStatusMutation,
@@ -62,7 +63,7 @@ const TailorsOrders = () => {
               <div className="order-card__image" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 {order.productId?.primaryImage ? (
                   <img
-                    src={`${import.meta.env.VITE_BASE_URL || 'http://localhost:5001'}${order.productId.primaryImage}`}
+                    src={getImageUrl(order.productId.primaryImage)}
                     alt={order.productId?.name || 'Product'}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />

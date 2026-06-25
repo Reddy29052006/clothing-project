@@ -13,7 +13,12 @@ const addTailorsProduct = async (req, res, next) => {
 
     let imagePaths = [];
     if (req.files && req.files.length > 0) {
-      imagePaths = req.files.map((file) => `/uploads/${file.filename}`);
+      const { uploadToCloudinary } = require('../../utils/cloudinary');
+      imagePaths = await Promise.all(
+        req.files.map(async (file) => {
+          return await uploadToCloudinary(file.path);
+        })
+      );
     }
 
     const product = await Product.create({
@@ -107,6 +112,18 @@ const updateOrderStatus = async (req, res, next) => {
     order.statusHistory.push({ status, timestamp: new Date(), note: note || '' });
 
     await order.save();
+
+    // Send email notification on status change
+    try {
+      const User = require('../../models/User');
+      const client = await User.findById(order.userId);
+      if (client && client.email) {
+        const { sendOrderStatusUpdate } = require('../../utils/notificationService');
+        await sendOrderStatusUpdate(client.email, order.orderId, status, note);
+      }
+    } catch (emailErr) {
+      console.error('⚠️ Failed to send status update email:', emailErr.message);
+    }
 
     res.json({ success: true, order });
   } catch (error) {

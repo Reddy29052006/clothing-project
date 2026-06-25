@@ -1,13 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { ShoppingBag } from 'lucide-react';
 import { selectCartItems, selectCartTotal, clearCart } from '../../../store/slices/cartSlice';
-import { selectIsAuthenticated } from '../../../store/slices/authSlice';
-import { useCreateOrderMutation } from '../../../services/ordersApi';
+import { selectIsAuthenticated, selectCurrentUser } from '../../../store/slices/authSlice';
+import { useCreateCheckoutSessionMutation, useConfirmPaymentMutation } from '../../../services/ordersApi';
 import CartItem from './components/CartItem';
 import CartSummary from './components/CartSummary';
 import './Cart.css';
+
+// Dynamically load Razorpay Checkout script
+const loadRazorpayScript = () =>
+  new Promise((resolve) => {
+    if (document.querySelector('script[src*="razorpay"]')) {
+      return resolve(true);
+    }
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.onload = () => resolve(true);
+    script.onerror = () => resolve(false);
+    document.body.appendChild(script);
+  });
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -16,7 +29,9 @@ const Cart = () => {
   const items = useSelector(selectCartItems);
   const totalPrice = useSelector(selectCartTotal);
   const isAuthenticated = useSelector(selectIsAuthenticated);
-  const [createOrder, { isLoading: checkingOut }] = useCreateOrderMutation();
+  const user = useSelector(selectCurrentUser);
+  const [createCheckoutSession, { isLoading: checkingOut }] = useCreateCheckoutSessionMutation();
+  const [confirmPayment] = useConfirmPaymentMutation();
 
   const [address, setAddress] = useState({ street: '', city: '', state: '', pincode: '' });
   const [errors, setErrors] = useState({});
@@ -36,23 +51,76 @@ const Cart = () => {
     if (!isAuthenticated) { navigate('/login'); return; }
     if (!validateAddress()) return;
     setOrderError('');
+
     try {
-      const results = await Promise.all(
-        items.map((item) =>
-          createOrder({
-            productId: item.productId,
-            selectedFabric: item.selectedFabric,
-            selectedColor: item.selectedColor,
-            fitPreference: item.fitPreference,
-            deliveryAddress: address,
-          }).unwrap()
-        )
-      );
-      dispatch(clearCart());
-      const firstId = results[0]?.order?._id;
-      navigate(firstId ? `/orders/${firstId}` : '/dashboard');
+      // Step 1 — Create order on backend
+      const result = await createCheckoutSession({
+        items: items.map((item) => ({
+          productId: item.productId,
+          selectedFabric: item.selectedFabric,
+          selectedColor: item.selectedColor,
+          fitPreference: item.fitPreference,
+        })),
+        deliveryAddress: address,
+      }).unwrap();
+
+      if (!result.success) {
+        setOrderError('Failed to initiate checkout.');
+        return;
+      }
+
+      // Step 2 — MOCK mode: skip Razorpay SDK, go straight to success page
+      if (result.mode === 'mock') {
+        dispatch(clearCart());
+        navigate(`/payment-success?session_id=${result.orderId}`);
+        return;
+      }
+
+      // Step 3 — Load Razorpay SDK
+      const loaded = await loadRazorpayScript();
+      if (!loaded) {
+        setOrderError('Failed to load payment gateway. Please check your internet connection.');
+        return;
+      }
+
+      // Step 4 — Open Razorpay popup
+      const options = {
+        key: result.keyId,
+        amount: result.amount,       // already in paise from backend
+        currency: result.currency,
+        name: 'FitCraft',
+        description: `Custom Tailoring Order`,
+        order_id: result.orderId,    // Razorpay order ID
+        prefill: {
+          name: user?.name || '',
+          email: user?.email || '',
+        },
+        theme: { color: '#6366f1' },
+        handler: async (response) => {
+          // Step 5 — Verify payment on backend
+          try {
+            await confirmPayment({
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_signature: response.razorpay_signature,
+            }).unwrap();
+            dispatch(clearCart());
+            navigate(`/payment-success?session_id=${response.razorpay_order_id}`);
+          } catch {
+            setOrderError('Payment was made but verification failed. Please contact support with your payment ID: ' + response.razorpay_payment_id);
+          }
+        },
+        modal: {
+          ondismiss: () => {
+            setOrderError('Payment was cancelled.');
+          },
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.open();
     } catch (err) {
-      setOrderError(err?.data?.message || 'Failed to place order. Please try again.');
+      setOrderError(err?.data?.message || 'Failed to initiate checkout. Please try again.');
     }
   };
 

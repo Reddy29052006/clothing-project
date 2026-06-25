@@ -8,6 +8,7 @@ import Cart from '../pages/user/Cart/Cart';
 import OrderTracking from '../pages/user/OrderTracking/OrderTracking';
 import UserDashboard from '../pages/user/UserDashboard/UserDashboard';
 import MyOrders from '../pages/user/MyOrders/MyOrders';
+import PaymentSuccess from '../pages/user/PaymentSuccess/PaymentSuccess';
 
 // ── User / Customer Routes ─────────────────────────────────────────────────
 const userRoutes = [
@@ -40,6 +41,14 @@ const userRoutes = [
     element: (
       <ProtectedRoute roles={['user']}>
         <Layout><Cart /></Layout>
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/payment-success',
+    element: (
+      <ProtectedRoute roles={['user']}>
+        <Layout><PaymentSuccess /></Layout>
       </ProtectedRoute>
     ),
   },

@@ -165,6 +165,19 @@ const updateOrderStatus = async (req, res, next) => {
     }
 
     await order.save();
+
+    // Send email notification on status change
+    try {
+      const User = require('../../models/User');
+      const client = await User.findById(order.userId);
+      if (client && client.email) {
+        const { sendOrderStatusUpdate } = require('../../utils/notificationService');
+        await sendOrderStatusUpdate(client.email, order.orderId, status, note);
+      }
+    } catch (emailErr) {
+      console.error('⚠️ Failed to send status update email:', emailErr.message);
+    }
+
     res.json({ success: true, order: sanitizeOrder(order, req.user) });
   } catch (error) {
     next(error);

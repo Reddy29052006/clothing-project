@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.dockerignore
+docker-compose.yml
+**/.env
+**/dist
+**/build
+**/coverage
+apps/backend/uploads
+**/__tests__
+**/jest.config.js

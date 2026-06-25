@@ -48,6 +48,26 @@ export const ordersApi = baseApi.injectEndpoints({
       invalidatesTags: ['Orders', 'TailorsOrders'],
     }),
 
+    // Create Razorpay Order on backend
+    createCheckoutSession: builder.mutation({
+      query: (data) => ({
+        url: '/payments/create-checkout-session',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['MyOrders'],
+    }),
+
+    // Verify Razorpay payment signature and confirm orders
+    confirmPayment: builder.mutation({
+      query: (data) => ({
+        url: '/payments/confirm',
+        method: 'POST',
+        body: data,
+      }),
+      invalidatesTags: ['MyOrders'],
+    }),
+
   }),
   overrideExisting: false,
 });
@@ -58,4 +78,6 @@ export const {
   useGetOrderByIdQuery,
   useUpdateOrderStatusMutation,
   useAcceptOrderMutation,
+  useCreateCheckoutSessionMutation,
+  useConfirmPaymentMutation,
 } = ordersApi;

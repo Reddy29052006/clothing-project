@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useGetProductsQuery } from '../../../../services/productsApi';
 import { ArrowRight, Star, Shirt } from 'lucide-react';
+import { getImageUrl } from '../../../../utils/imageHelper';
 
 const StarRating = ({ rating }) => (
   <div className="stars" style={{ display: 'flex', gap: '2px', color: 'var(--color-gold)' }}>
@@ -46,7 +47,7 @@ const FeaturedProducts = () => {
               <Link key={product._id} to={`/products/${product._id}`} className={`product-card reveal delay-${(i % 4 + 1) * 100} visible`}>
                 <div className="product-card__image">
                   {product.primaryImage ? (
-                    <img src={`${import.meta.env.VITE_BASE_URL}${product.primaryImage}`} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <img src={getImageUrl(product.primaryImage)} alt={product.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
                     <div className="product-card__placeholder">
                       <Shirt size={48} color="var(--color-gold-muted)" />

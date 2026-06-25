@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Shirt, Plus } from 'lucide-react';
+import { getImageUrl } from '../../../utils/imageHelper';
 import { useGetTailorsProductsQuery } from '../../../services/tailorsApi';
 import './TailorsCollection.css';
 
@@ -37,7 +38,7 @@ const TailorsCollection = () => {
                 <Link to={`/tailors/products/detail/${product._id}`} className="vc-card__image-wrap">
                   {product.primaryImage ? (
                     <img 
-                      src={`${import.meta.env.VITE_BASE_URL || 'http://localhost:5001'}${product.primaryImage}`} 
+                      src={getImageUrl(product.primaryImage)} 
                       alt={product.name}
                       className="vc-card__image" 
                     />
