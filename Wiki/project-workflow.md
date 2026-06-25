@@ -409,19 +409,35 @@ npm run -w apps/backend <command>   # Run command in backend workspace
 
 ### Environment Variables
 
+For a step-by-step guide on how to sign up and retrieve each API key/credential below, refer to the **[Step-by-Step API Credentials Guide](./GET_APIS.md)**.
+
 **Frontend** (`.env` in `apps/frontend/`)
-```
-VITE_API_BASE_URL=http://localhost:5001/api
-VITE_APP_NAME=FitCraft
+```env
+VITE_API_URL=http://localhost:5001/api
+VITE_BASE_URL=http://localhost:5001
 ```
 
 **Backend** (`.env` in `apps/backend/`)
-```
+```env
 PORT=5001
 NODE_ENV=development
-MONGODB_URI=mongodb://localhost:27017/fitcraft
-JWT_SECRET=your-secret-key-here
-JWT_EXPIRE=7d
+CLIENT_URL=http://localhost:5173
+JWT_SECRET=fitcraft_jwt
+JWT_EXPIRES_IN=7d
+MONGO_URI=mongodb+srv://...
+
+# Integrations
+RAZORPAY_KEY_ID=your_razorpay_key_id
+RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+FROM_EMAIL=your_email@domain.com
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your_gmail@gmail.com
+SMTP_PASS=your_gmail_app_password
+NGROK_AUTHTOKEN=your_ngrok_token
 ```
 
 ---

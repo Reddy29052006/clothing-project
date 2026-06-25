@@ -6,10 +6,10 @@ FitCraft is a modern, premium web application designed to solve the fashion indu
 
 ## 📖 Project Wiki & Documentation
 
-We have moved all project details, architecture outlines, features, and deployment configurations to our **[FitCraft Project Wiki](../../wiki)**.
+We have moved all project details, architecture outlines, features, and deployment configurations to our **[FitCraft Project Wiki](./Wiki)**.
 
 For a comprehensive understanding of the platform, database schemas, feature roadmap, and development updates, please visit:
-👉 **[Go to the Project Wiki](../../wiki)**
+👉 **[Go to the Project Wiki](./Wiki)**
 
 ---
 
@@ -33,9 +33,17 @@ npm run dev
 - **Frontend URL**: [http://localhost:5173](http://localhost:5173)
 - **Backend API URL**: [http://localhost:5001](http://localhost:5001)
 
+### 3. Migrating Local Images to Cloudinary (One-time)
+If your database has old products referencing local filesystem paths, you can migrate them to Cloudinary using:
+```bash
+node scripts/migrateImagesToCloud.js
+```
+This uploads the files to Cloudinary, updates MongoDB, and purges the local uploads folder.
+
 ---
 
 ## 🛠️ Project Structure
 
 - `apps/frontend`: React (Vite) client application
 - `apps/backend`: Express.js API server
+- `scripts`: Utility setup and migration scripts

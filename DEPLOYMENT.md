@@ -15,11 +15,25 @@ Render is excellent for hosting the Node.js API.
 6. **Environment Variables**:
    - `NODE_ENV`: `production`
    - `PORT`: `5001`
-   - `MONGO_URI`: Your MongoDB Atlas connection string.
-   - `JWT_SECRET`: A secure random string.
    - `CLIENT_URL`: Your production frontend URL (e.g., `https://your-app.vercel.app`).
-   - `GOOGLE_Client_ID`: Google OAuth Client ID.
-   - `GOOGLE_Client_secret`: Google OAuth Client Secret.
+   - `MONGO_URI`: Your MongoDB Atlas connection string.
+   - `JWT_SECRET`: A secure random string for JWT signatures.
+   - `RAZORPAY_KEY_ID`: Razorpay public API Key.
+   - `RAZORPAY_KEY_SECRET`: Razorpay private API Key.
+   - `CLOUDINARY_CLOUD_NAME`: Cloudinary Cloud Name.
+   - `CLOUDINARY_API_KEY`: Cloudinary API Key.
+   - `CLOUDINARY_API_SECRET`: Cloudinary API Secret.
+   - `FROM_EMAIL`: Sender address for notification emails.
+   - `SMTP_HOST`: SMTP host (e.g., `smtp.gmail.com`).
+   - `SMTP_PORT`: SMTP port (e.g., `587`).
+   - `SMTP_USER`: SMTP authenticated user account.
+   - `SMTP_PASS`: SMTP authenticated app-specific password.
+
+##### 🔗 Where to get these API credentials:
+* **MongoDB Atlas URI**: Create/get your connection string from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
+* **Razorpay Keys**: Obtain these keys from [Razorpay Dashboard Settings](https://dashboard.razorpay.com/).
+* **Cloudinary Credentials**: Find Cloud Name, API Key, and Secret in the [Cloudinary Console](https://cloudinary.com/).
+* **SMTP Auth Passwords**: If using Google Gmail, generate an App Password in [Google Account Security Settings](https://myaccount.google.com/apppasswords).
 
 ---
 
@@ -34,14 +48,14 @@ Vercel is the preferred choice for the React frontend.
 4. **Build Command**: `npm run build`
 5. **Output Directory**: `dist`
 6. **Environment Variables**:
-   - `VITE_API_URL`: Your Render API URL (e.g., `https://your-api.onrender.com/api`).
-   - `VITE_BASE_URL`: Your Render API Base URL (e.g., `https://your-api.onrender.com`).
+   - `VITE_API_URL`: Your production API endpoint (e.g., `https://your-api.onrender.com/api`).
+   - `VITE_BASE_URL`: Your production base API server endpoint (e.g., `https://your-api.onrender.com`).
 
 ---
 
 ## 3. Production Checklist
-- [ ] **CORS**: Ensure `CLIENT_URL` in the API matches the Vercel domain.
-- [ ] **JWT**: Use a secure `JWT_SECRET`.
-- [ ] **Database**: Use a production-grade MongoDB Atlas cluster.
-- [ ] **Testing**: Run `npm run build` locally to ensure no compilation errors.
-- [ ] **HTTPS**: Both Render and Vercel provide SSL by default.
+- [ ] **CORS**: Ensure `CLIENT_URL` in the Render environment variables matches the exact Vercel deployment domain.
+- [ ] **Cloud-First Asset Management**: Verify Cloudinary credentials are set to ensure that tailors' image uploads are pushed directly to the CDN and no local files accumulate.
+- [ ] **JWT**: Use a strong, secure, generated `JWT_SECRET`.
+- [ ] **Testing**: Run `npm run build` locally to ensure no compilation errors before git pushing.
+- [ ] **HTTPS**: Both Render and Vercel provide SSL/TLS encryption by default.

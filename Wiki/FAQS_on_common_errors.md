@@ -71,11 +71,11 @@ A deep dive into 20 real-world scenarios you might encounter while developing fo
 
 ### 5. Image upload succeeds but image not visible
 
-- **Problem:** 404 error on image URL.
-- **Symptoms:** Product images appear as broken icons in the browser.
-- **Root Cause:** `VITE_BASE_URL` mismatch or Express static route not defined.
-- **Solution:** Ensure `app.use('/uploads', express.static(...))` is in `server.js`.
-- **Prevention:** Verify static asset middleware and frontend URL prefixes during environment setup.
+- **Problem:** Broken image icons on products or tailors dashboards.
+- **Symptoms:** Images fail to load, showing broken elements in the browser console.
+- **Root Cause:** Invalid or missing Cloudinary environment variables (`CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`), or a component is not using the `getImageUrl` resolver utility.
+- **Solution:** Verify your Cloudinary credentials in `apps/backend/.env`. Ensure that components are rendering product image paths wrapped with the `getImageUrl` helper function.
+- **Prevention:** Always check Cloudinary credentials upon system setup and verify that any component handling image paths imports and applies the `getImageUrl` helper.
 
 ---
 
