@@ -20,6 +20,7 @@ Render is excellent for hosting the Node.js API.
    - `JWT_SECRET`: A secure random string for JWT signatures.
    - `RAZORPAY_KEY_ID`: Razorpay public API Key.
    - `RAZORPAY_KEY_SECRET`: Razorpay private API Key.
+   - `RAZORPAY_WEBHOOK_SECRET`: Razorpay Webhook Secret (optional, for signature verification).
    - `CLOUDINARY_CLOUD_NAME`: Cloudinary Cloud Name.
    - `CLOUDINARY_API_KEY`: Cloudinary API Key.
    - `CLOUDINARY_API_SECRET`: Cloudinary API Secret.
@@ -28,12 +29,15 @@ Render is excellent for hosting the Node.js API.
    - `SMTP_PORT`: SMTP port (e.g., `587`).
    - `SMTP_USER`: SMTP authenticated user account.
    - `SMTP_PASS`: SMTP authenticated app-specific password.
+   - `CLIENT_ID`: Your Google Cloud Console OAuth Client ID.
+   - `CLIENT_SECRET`: Your Google Cloud Console OAuth Client Secret.
 
 ##### 🔗 Where to get these API credentials:
 * **MongoDB Atlas URI**: Create/get your connection string from [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 * **Razorpay Keys**: Obtain these keys from [Razorpay Dashboard Settings](https://dashboard.razorpay.com/).
 * **Cloudinary Credentials**: Find Cloud Name, API Key, and Secret in the [Cloudinary Console](https://cloudinary.com/).
 * **SMTP Auth Passwords**: If using Google Gmail, generate an App Password in [Google Account Security Settings](https://myaccount.google.com/apppasswords).
+* **Google OAuth Credentials**: Obtain the Client ID and Client Secret from the [Google Cloud Console](https://console.cloud.google.com/apis/credentials). See the step-by-step setup instructions in [Wiki: How to Get APIs](file:///r:/programs/training/clothing-project/Wiki/GET_APIS.md).
 
 ---
 
@@ -50,6 +54,7 @@ Vercel is the preferred choice for the React frontend.
 6. **Environment Variables**:
    - `VITE_API_URL`: Your production API endpoint (e.g., `https://your-api.onrender.com/api`).
    - `VITE_BASE_URL`: Your production base API server endpoint (e.g., `https://your-api.onrender.com`).
+   - `VITE_GOOGLE_CLIENT_ID`: Your Google Cloud Console OAuth Client ID.
 
 ---
 

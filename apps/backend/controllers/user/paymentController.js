@@ -158,7 +158,10 @@ const confirmPayment = async (req, res, next) => {
 
     // ── MOCK Confirmation ────────────────────────────────────────────────
     if (rzpOrderId.startsWith('mock_rzp_')) {
-      const orders = await Order.find({ stripeSessionId: rzpOrderId }).populate('productId', 'name');
+      const orders = await Order.find({ stripeSessionId: rzpOrderId })
+        .populate('productId', 'name')
+        .populate('userId', 'name email')
+        .populate('tailorsId', 'email name');
 
       if (orders.length === 0) {
         return res.status(404).json({ success: false, message: 'No orders found for this session' });
@@ -183,6 +186,15 @@ const confirmPayment = async (req, res, next) => {
           productName: order.productId?.name || 'Garment',
           totalPrice: order.totalPrice,
         });
+
+        // Send email notification to tailor
+        if (order.tailorsId && order.tailorsId.email) {
+          await notificationService.sendTailorNewOrderNotification(order.tailorsId.email, {
+            orderId: order.orderId,
+            productName: order.productId?.name || 'Garment',
+            clientName: order.userId?.name || req.user?.name || 'Client',
+          });
+        }
       }
 
       return res.json({ success: true, message: 'Mock payment confirmed', orders });
@@ -210,7 +222,10 @@ const confirmPayment = async (req, res, next) => {
     }
 
     // Confirm orders in DB
-    const orders = await Order.find({ stripeSessionId: rzpOrderId }).populate('productId', 'name');
+    const orders = await Order.find({ stripeSessionId: rzpOrderId })
+      .populate('productId', 'name')
+      .populate('userId', 'name email')
+      .populate('tailorsId', 'email name');
 
     if (orders.length === 0) {
       return res.status(404).json({ success: false, message: 'No orders found for this Razorpay order' });
@@ -232,6 +247,15 @@ const confirmPayment = async (req, res, next) => {
           productName: order.productId?.name || 'Garment',
           totalPrice: order.totalPrice,
         });
+
+        // Send email notification to tailor
+        if (order.tailorsId && order.tailorsId.email) {
+          await notificationService.sendTailorNewOrderNotification(order.tailorsId.email, {
+            orderId: order.orderId,
+            productName: order.productId?.name || 'Garment',
+            clientName: order.userId?.name || req.user?.name || 'Client',
+          });
+        }
       }
     }
 
@@ -271,8 +295,10 @@ const razorpayWebhook = async (req, res, next) => {
 
     try {
       console.log(`🔔 Razorpay Webhook: payment.captured for order ${rzpOrderId}`);
-      const orders = await Order.find({ stripeSessionId: rzpOrderId });
-      const User = require('../../models/User');
+      const orders = await Order.find({ stripeSessionId: rzpOrderId })
+        .populate('productId', 'name')
+        .populate('userId', 'name email')
+        .populate('tailorsId', 'email name');
 
       for (const order of orders) {
         if (order.paymentStatus !== 'paid') {
@@ -285,12 +311,20 @@ const razorpayWebhook = async (req, res, next) => {
           });
           await order.save();
 
-          const user = await User.findById(order.userId);
-          if (user) {
-            await notificationService.sendOrderConfirmation(user.email, {
+          if (order.userId && order.userId.email) {
+            await notificationService.sendOrderConfirmation(order.userId.email, {
               orderId: order.orderId,
-              productName: 'Custom Crafted Garment',
+              productName: order.productId?.name || 'Custom Crafted Garment',
               totalPrice: order.totalPrice,
+            });
+          }
+
+          // Send email notification to tailor
+          if (order.tailorsId && order.tailorsId.email) {
+            await notificationService.sendTailorNewOrderNotification(order.tailorsId.email, {
+              orderId: order.orderId,
+              productName: order.productId?.name || 'Custom Crafted Garment',
+              clientName: order.userId?.name || 'Client',
             });
           }
         }

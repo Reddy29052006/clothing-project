@@ -1,0 +1,128 @@
+.onboarding-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: var(--space-8) var(--space-4);
+  background: radial-gradient(circle at 10% 20%, rgba(247, 244, 240, 1) 0%, rgba(235, 230, 222, 1) 90%);
+}
+
+.onboarding-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-xl);
+  border-radius: var(--radius-2xl);
+  width: 100%;
+  max-width: 600px;
+  padding: var(--space-8);
+  backdrop-filter: blur(10px);
+}
+
+.onboarding-header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.onboarding-logo {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.02em;
+}
+
+.onboarding-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.onboarding-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.onboarding-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ── Role Selection Cards ───────────────────────── */
+.onboarding-role-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.onboarding-role-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  cursor: pointer;
+  text-align: left;
+  transition: all var(--transition-base);
+}
+
+.onboarding-role-card:hover {
+  border-color: var(--color-primary);
+  background: var(--color-surface-2);
+  transform: translateY(-2px);
+}
+
+.onboarding-role-card.active {
+  border-color: var(--color-gold);
+  background: var(--color-surface-2);
+  box-shadow: 0 0 0 1px var(--color-gold);
+}
+
+.role-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+}
+
+.onboarding-role-card.active .role-icon-box {
+  background: var(--color-gold);
+  color: white;
+}
+
+.role-text-box h3 {
+  font-size: var(--text-md);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+  margin-bottom: 2px;
+}
+
+.role-text-box p {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.onboarding-submit {
+  width: 100%;
+  justify-content: center;
+  padding: var(--space-3);
+  font-size: var(--text-md);
+}
+
+@media (max-width: 600px) {
+  .onboarding-card {
+    padding: var(--space-5);
+  }
+}

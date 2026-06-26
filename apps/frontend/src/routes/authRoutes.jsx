@@ -4,6 +4,8 @@ import Footer from '../components/layout/Footer';
 import Landing from '../pages/auth/Landing/Landing';
 import Login from '../pages/auth/Login/Login';
 import Register from '../pages/auth/Register/Register';
+import Onboarding from '../pages/auth/Onboarding';
+import { ProtectedOnboardingRoute } from './ProtectedRoute';
 
 // ── Layout Wrappers ────────────────────────────────────────────────────────
 export const Layout = ({ children }) => (
@@ -29,6 +31,10 @@ const authRoutes = [
   {
     path: '/register',
     element: <FullScreen><Register /></FullScreen>,
+  },
+  {
+    path: '/onboarding',
+    element: <FullScreen><ProtectedOnboardingRoute><Onboarding /></ProtectedOnboardingRoute></FullScreen>,
   },
 
   // 404

@@ -7,7 +7,20 @@ const protect = async (req, res, next) => {
   try {
     let token;
 
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+    // 1. Try to read token from cookies
+    if (req.headers.cookie) {
+      const cookies = req.headers.cookie.split(';').reduce((acc, c) => {
+        const [key, ...val] = c.trim().split('=');
+        if (key) acc[key] = val.join('=');
+        return acc;
+      }, {});
+      if (cookies['fitcraft_auth_token']) {
+        token = cookies['fitcraft_auth_token'];
+      }
+    }
+
+    // 2. Fallback to Authorization Bearer header
+    if (!token && req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
       token = req.headers.authorization.split(' ')[1];
     }
 

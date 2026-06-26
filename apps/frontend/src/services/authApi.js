@@ -22,6 +22,22 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
 
+    googleLogin: builder.mutation({
+      query: (tokenObj) => ({
+        url: '/auth/google',
+        method: 'POST',
+        body: tokenObj,
+      }),
+    }),
+
+    completeOnboarding: builder.mutation({
+      query: (onboardingData) => ({
+        url: '/auth/complete-onboarding',
+        method: 'POST',
+        body: onboardingData,
+      }),
+    }),
+
     getMe: builder.query({
       query: () => '/auth/me',
       providesTags: ['Auth'],
@@ -31,4 +47,10 @@ export const authApi = baseApi.injectEndpoints({
   overrideExisting: false,
 });
 
-export const { useLoginMutation, useRegisterMutation, useGetMeQuery } = authApi;
+export const {
+  useLoginMutation,
+  useRegisterMutation,
+  useGoogleLoginMutation,
+  useCompleteOnboardingMutation,
+  useGetMeQuery,
+} = authApi;

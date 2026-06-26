@@ -115,8 +115,31 @@ const sendOrderStatusUpdate = async (userEmail, orderId, newStatus, note = '') =
   await sendEmail({ to: userEmail, subject, text, html });
 };
 
+/**
+ * Send new order notification to tailor
+ */
+const sendTailorNewOrderNotification = async (tailorEmail, { orderId, productName, clientName }) => {
+  const subject = `📢 New Order Received! - ${orderId}`;
+  const text = `Hello! You have received a new custom tailoring order. Order ID: ${orderId}. Garment: ${productName}. Client: ${clientName}. Please log in to your dashboard to accept or reject the order.`;
+  const html = `
+    <h2>FitCraft Custom Tailoring - New Order</h2>
+    <p>Hello! You have received a new custom-fit tailoring order on the FitCraft platform.</p>
+    <ul>
+      <li><strong>Order ID:</strong> ${orderId}</li>
+      <li><strong>Garment:</strong> ${productName}</li>
+      <li><strong>Client:</strong> ${clientName}</li>
+    </ul>
+    <p>Please log in to your Tailor Dashboard to review the measurements and accept/reject the order.</p>
+    <br/>
+    <p>Thank you for choosing FitCraft!</p>
+  `;
+
+  await sendEmail({ to: tailorEmail, subject, text, html });
+};
+
 module.exports = {
   sendEmail,
   sendOrderConfirmation,
   sendOrderStatusUpdate,
+  sendTailorNewOrderNotification,
 };

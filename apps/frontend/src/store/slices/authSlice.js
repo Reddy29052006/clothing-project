@@ -5,9 +5,10 @@ const getInitialState = () => {
   let token = null;
   try {
     const userStr = localStorage.getItem('fitcraft_auth_user');
-    const tokenStr = localStorage.getItem('fitcraft_auth_token');
-    if (userStr) user = JSON.parse(userStr);
-    if (tokenStr) token = tokenStr;
+    if (userStr) {
+      user = JSON.parse(userStr);
+      token = 'cookie_authenticated';
+    }
   } catch (err) {
     console.error('Failed to parse auth from localStorage', err);
   }
@@ -25,18 +26,16 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.token = 'cookie_authenticated';
       state.loading = false;
       state.error = null;
       localStorage.setItem('fitcraft_auth_user', JSON.stringify(action.payload.user));
-      localStorage.setItem('fitcraft_auth_token', action.payload.token);
     },
-    logout: (state) => {
+    clearCredentials: (state) => {
       state.user = null;
       state.token = null;
       state.error = null;
       localStorage.removeItem('fitcraft_auth_user');
-      localStorage.removeItem('fitcraft_auth_token');
     },
     setAuthLoading: (state, action) => {
       state.loading = action.payload;
@@ -47,7 +46,19 @@ const authSlice = createSlice({
   },
 });
 
-export const { setCredentials, logout, setAuthLoading, clearError } = authSlice.actions;
+export const { setCredentials, clearCredentials, setAuthLoading, clearError } = authSlice.actions;
+
+export const logout = () => async (dispatch) => {
+  try {
+    await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
+      method: 'POST',
+      credentials: 'include',
+    });
+  } catch (err) {
+    console.error('Failed to log out from backend', err);
+  }
+  dispatch(clearCredentials());
+};
 
 // ── Selectors 
 export const selectCurrentUser = (state) => state.auth.user;

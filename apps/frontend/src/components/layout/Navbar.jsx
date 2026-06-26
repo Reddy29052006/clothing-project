@@ -27,6 +27,8 @@ const Navbar = () => {
   const isClient = useSelector(selectIsClient);
   const itemCount = useSelector(selectCartCount);
 
+  const isPendingOnboarding = user?.role === 'pending_onboarding';
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -72,20 +74,26 @@ const Navbar = () => {
 
         {/* Desktop Nav */}
         <nav className="navbar__nav" aria-label="Main Navigation">
-          {!isClient && (
+          {isAuthenticated && isPendingOnboarding ? (
+            <span className="navbar__link active" style={{ letterSpacing: '0.05em', color: 'var(--color-gold)' }}>Complete Account Setup ✦</span>
+          ) : (
             <>
-              <Link to="/products" className={`navbar__link ${isActive('/products') ? 'active' : ''}`}>Collections</Link>
-              <Link to="/measure" className={`navbar__link ${isActive('/measure') ? 'active' : ''}`}>Get Measured</Link>
+              {!isClient && (
+                <>
+                  <Link to="/products" className={`navbar__link ${isActive('/products') ? 'active' : ''}`}>Collections</Link>
+                  <Link to="/measure" className={`navbar__link ${isActive('/measure') ? 'active' : ''}`}>Get Measured</Link>
+                </>
+              )}
+              {isAuthenticated && isClient && (
+                <Link to="/custom-orders" className={`navbar__link ${isActive('/custom-orders') ? 'active' : ''}`}>Custom Tailoring</Link>
+              )}
+              {isAuthenticated && isTailors && (
+                <Link to="/tailors/tailoring" className={`navbar__link ${isActive('/tailors/tailoring') ? 'active' : ''}`}>Tailoring Jobs</Link>
+              )}
+              {isAuthenticated && isUser && (
+                <Link to="/orders" className={`navbar__link ${isActive('/orders') ? 'active' : ''}`}>My Orders</Link>
+              )}
             </>
-          )}
-          {isAuthenticated && isClient && (
-            <Link to="/custom-orders" className={`navbar__link ${isActive('/custom-orders') ? 'active' : ''}`}>Custom Tailoring</Link>
-          )}
-          {isAuthenticated && isTailors && (
-            <Link to="/tailors/tailoring" className={`navbar__link ${isActive('/tailors/tailoring') ? 'active' : ''}`}>Tailoring Jobs</Link>
-          )}
-          {isAuthenticated && isUser && (
-            <Link to="/orders" className={`navbar__link ${isActive('/orders') ? 'active' : ''}`}>My Orders</Link>
           )}
         </nav>
 
@@ -94,7 +102,7 @@ const Navbar = () => {
           {isAuthenticated ? (
             <>
               {/* Cart — only for user role */}
-              {isUser && (
+              {isUser && !isPendingOnboarding && (
                 <Link to="/cart" className="navbar__cart-btn" aria-label="Cart">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
@@ -121,20 +129,26 @@ const Navbar = () => {
                     <div className="navbar__dropdown-header">
                       <p className="navbar__dropdown-name">{user?.name}</p>
                       <p className="navbar__dropdown-email">{user?.email}</p>
-                      <span className={`badge badge--${user?.role === 'admin' ? 'primary' : user?.role === 'tailors' ? 'gold' : user?.role === 'client' ? 'purple' : 'success'}`}>
-                        {user?.role}
+                      <span className={`badge badge--${user?.role === 'admin' ? 'primary' : user?.role === 'tailors' ? 'gold' : user?.role === 'client' ? 'purple' : user?.role === 'pending_onboarding' ? 'error' : 'success'}`}>
+                        {user?.role === 'pending_onboarding' ? 'setup pending' : user?.role}
                       </span>
                     </div>
                     <div className="divider" style={{ margin: '0.5rem 0' }} />
-                    <Link to={getDashboardLink()} className="navbar__dropdown-item">Dashboard</Link>
-                    {isClient && (
-                      <Link to="/custom-orders" className="navbar__dropdown-item">Custom Tailoring</Link>
-                    )}
-                    {isUser && (
-                      <Link to="/orders" className="navbar__dropdown-item">My Orders</Link>
-                    )}
-                    {isTailors && (
-                      <Link to="/tailors/tailoring" className="navbar__dropdown-item">Tailoring Jobs</Link>
+                    {!isPendingOnboarding ? (
+                      <>
+                        <Link to={getDashboardLink()} className="navbar__dropdown-item">Dashboard</Link>
+                        {isClient && (
+                          <Link to="/custom-orders" className="navbar__dropdown-item">Custom Tailoring</Link>
+                        )}
+                        {isUser && (
+                          <Link to="/orders" className="navbar__dropdown-item">My Orders</Link>
+                        )}
+                        {isTailors && (
+                          <Link to="/tailors/tailoring" className="navbar__dropdown-item">Tailoring Jobs</Link>
+                        )}
+                      </>
+                    ) : (
+                      <Link to="/onboarding" className="navbar__dropdown-item">Complete Setup</Link>
                     )}
                     <button onClick={handleLogout} className="navbar__dropdown-item navbar__dropdown-item--danger">
                       Sign Out
@@ -166,31 +180,40 @@ const Navbar = () => {
       {menuOpen && (
         <div className="navbar__mobile animate-fadeDown">
           <nav className="navbar__mobile-nav">
-            {!isClient && (
+            {isAuthenticated && isPendingOnboarding ? (
               <>
-                <Link to="/products" className="navbar__mobile-link">Collections</Link>
-                <Link to="/measure" className="navbar__mobile-link">Get Measured</Link>
-              </>
-            )}
-            {isAuthenticated && (
-              <>
-                {isClient && (
-                  <Link to="/custom-orders" className="navbar__mobile-link">Custom Tailoring</Link>
-                )}
-                {isTailors && (
-                  <Link to="/tailors/tailoring" className="navbar__mobile-link">Tailoring Jobs</Link>
-                )}
-                {isUser && (
-                  <Link to="/orders" className="navbar__mobile-link">My Orders</Link>
-                )}
-                <Link to={getDashboardLink()} className="navbar__mobile-link">Dashboard</Link>
+                <span className="navbar__mobile-link" style={{ color: 'var(--color-gold)' }}>Complete Account Setup ✦</span>
                 <button onClick={handleLogout} className="navbar__mobile-link navbar__mobile-link--danger">Sign Out</button>
               </>
-            )}
-            {!isAuthenticated && (
+            ) : (
               <>
-                <Link to="/login" className="navbar__mobile-link">Login</Link>
-                <Link to="/register" className="navbar__mobile-link navbar__mobile-link--primary">Get Started</Link>
+                {!isClient && (
+                  <>
+                    <Link to="/products" className="navbar__mobile-link">Collections</Link>
+                    <Link to="/measure" className="navbar__mobile-link">Get Measured</Link>
+                  </>
+                )}
+                {isAuthenticated && (
+                  <>
+                    {isClient && (
+                      <Link to="/custom-orders" className="navbar__mobile-link">Custom Tailoring</Link>
+                    )}
+                    {isTailors && (
+                      <Link to="/tailors/tailoring" className="navbar__mobile-link">Tailoring Jobs</Link>
+                    )}
+                    {isUser && (
+                      <Link to="/orders" className="navbar__mobile-link">My Orders</Link>
+                    )}
+                    <Link to={getDashboardLink()} className="navbar__mobile-link">Dashboard</Link>
+                    <button onClick={handleLogout} className="navbar__mobile-link navbar__mobile-link--danger">Sign Out</button>
+                  </>
+                )}
+                {!isAuthenticated && (
+                  <>
+                    <Link to="/login" className="navbar__mobile-link">Login</Link>
+                    <Link to="/register" className="navbar__mobile-link navbar__mobile-link--primary">Get Started</Link>
+                  </>
+                )}
               </>
             )}
           </nav>
