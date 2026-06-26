@@ -75,7 +75,7 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <nav className="navbar__nav" aria-label="Main Navigation">
           {isAuthenticated && isPendingOnboarding ? (
-            <span className="navbar__link active" style={{ letterSpacing: '0.05em', color: 'var(--color-gold)' }}>Complete Account Setup ✦</span>
+            <Link to="/onboarding" className="navbar__link active" style={{ letterSpacing: '0.05em', color: 'var(--color-gold)' }}>Complete Account Setup ✦</Link>
           ) : (
             <>
               {!isClient && (
@@ -182,7 +182,7 @@ const Navbar = () => {
           <nav className="navbar__mobile-nav">
             {isAuthenticated && isPendingOnboarding ? (
               <>
-                <span className="navbar__mobile-link" style={{ color: 'var(--color-gold)' }}>Complete Account Setup ✦</span>
+                <Link to="/onboarding" className="navbar__mobile-link" style={{ color: 'var(--color-gold)' }}>Complete Account Setup ✦</Link>
                 <button onClick={handleLogout} className="navbar__mobile-link navbar__mobile-link--danger">Sign Out</button>
               </>
             ) : (
