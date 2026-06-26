@@ -7,7 +7,9 @@ const getInitialState = () => {
     const userStr = localStorage.getItem('fitcraft_auth_user');
     if (userStr) {
       user = JSON.parse(userStr);
-      token = 'cookie_authenticated';
+      // Restore real JWT if stored, otherwise use cookie sentinel
+      const storedToken = localStorage.getItem('fitcraft_auth_token');
+      token = storedToken || 'cookie_authenticated';
     }
   } catch (err) {
     console.error('Failed to parse auth from localStorage', err);
@@ -26,16 +28,24 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       state.user = action.payload.user;
-      state.token = 'cookie_authenticated';
+      // Store real JWT token if provided (Google login, register, etc.)
+      // Fall back to 'cookie_authenticated' for cookie-only flows
+      state.token = action.payload.token && action.payload.token !== 'cookie_authenticated'
+        ? action.payload.token
+        : 'cookie_authenticated';
       state.loading = false;
       state.error = null;
       localStorage.setItem('fitcraft_auth_user', JSON.stringify(action.payload.user));
+      if (action.payload.token && action.payload.token !== 'cookie_authenticated') {
+        localStorage.setItem('fitcraft_auth_token', action.payload.token);
+      }
     },
     clearCredentials: (state) => {
       state.user = null;
       state.token = null;
       state.error = null;
       localStorage.removeItem('fitcraft_auth_user');
+      localStorage.removeItem('fitcraft_auth_token');
     },
     setAuthLoading: (state, action) => {
       state.loading = action.payload;

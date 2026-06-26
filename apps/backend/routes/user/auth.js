@@ -9,11 +9,12 @@ router.get('/me', protect, getMe);
 router.post('/google', googleLogin);
 router.post('/complete-onboarding', protect, completeOnboarding);
 router.post('/logout', (req, res) => {
+  const isProd = process.env.NODE_ENV === 'production';
   res.cookie('fitcraft_auth_token', '', {
     httpOnly: true,
     expires: new Date(0),
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Lax',
+    secure: isProd,
+    sameSite: isProd ? 'None' : 'Lax',
   });
   res.json({ success: true, message: 'Logged out successfully' });
 });

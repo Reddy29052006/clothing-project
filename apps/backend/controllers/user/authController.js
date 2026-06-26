@@ -9,11 +9,12 @@ const generateToken = (id, role) => {
 };
 
 const setTokenCookie = (res, token) => {
+  const isProd = process.env.NODE_ENV === 'production';
   res.cookie('fitcraft_auth_token', token, {
     httpOnly: true,
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'Lax',
+    secure: isProd,
+    sameSite: isProd ? 'None' : 'Lax', // 'None' required for cross-origin (Vercel → Render)
   });
 };
 
