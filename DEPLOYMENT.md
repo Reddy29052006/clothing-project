@@ -60,7 +60,8 @@ Vercel is the preferred choice for the React frontend.
 
 ## 3. Production Checklist
 - [ ] **CORS**: Ensure `CLIENT_URL` in the Render environment variables matches the exact Vercel deployment domain.
+- [ ] **WebSockets**: Render natively supports WebSockets. Ensure `VITE_BASE_URL` on Vercel points to your Render backend URL (e.g., `https://your-api.onrender.com`) — this is the Socket.IO connection target.
 - [ ] **Cloud-First Asset Management**: Verify Cloudinary credentials are set to ensure that tailors' image uploads are pushed directly to the CDN and no local files accumulate.
 - [ ] **JWT**: Use a strong, secure, generated `JWT_SECRET`.
 - [ ] **Testing**: Run `npm run build` locally to ensure no compilation errors before git pushing.
-- [ ] **HTTPS**: Both Render and Vercel provide SSL/TLS encryption by default.
+- [ ] **HTTPS**: Both Render and Vercel provide SSL/TLS encryption by default. Socket.IO will automatically use `wss://` (secure WebSocket) when the backend URL starts with `https://`.
