@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLoginMutation, useGoogleLoginMutation } from '../../../../services/authApi';
 import { setCredentials } from '../../../../store/slices/authSlice';
-import { AlertTriangle, User, Scissors, Shield, Briefcase } from 'lucide-react';
+import { AlertTriangle, Shield } from 'lucide-react';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -173,12 +173,10 @@ const LoginForm = () => {
           )}
         </div>
 
+
         <div className="auth-demo-accounts">
-          <p className="auth-demo-label">Demo accounts — click to fill:</p>
-          <div className="auth-demo-grid" style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
-            <button type="button" className="auth-demo-btn" onClick={() => fillDemo('user@fitcraft.com', 'user1234')}><User size={14} /> Customer</button>
-            <button type="button" className="auth-demo-btn" onClick={() => fillDemo('client@fitcraft.com', 'user1234')}><Briefcase size={14} /> Client</button>
-            <button type="button" className="auth-demo-btn" onClick={() => fillDemo('tailors@fitcraft.com', 'tailors123')}><Scissors size={14} /> Tailors</button>
+          <p className="auth-demo-label">Admin quick access:</p>
+          <div className="auth-demo-grid" style={{ gridTemplateColumns: '1fr' }}>
             <button type="button" className="auth-demo-btn" onClick={() => fillDemo('admin@fitcraft.com', 'Admin@123')}><Shield size={14} /> Admin</button>
           </div>
         </div>
